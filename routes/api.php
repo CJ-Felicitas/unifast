@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\http\Controllers\SwdaController;
+use App\http\Controllers\HrController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +19,25 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// SWDA API ROUTE START
+Route::get("list", [SwdaController::class,'list']);
+
+Route::get("cluster", [SwdaController::class,'cluster']);
+
+Route::get("modeDelivery", [SwdaController::class,'modeDelivery']);
+
+Route::get("sector", [SwdaController::class,'sector']);
+
+Route::get("clientele", [SwdaController::class,'clientele']);
+
+Route::get("regionaloperation", [SwdaController::class,'regionaloperation']);
+
+// SWDA API ROUTE END
+
+// HR API ROUTE START
+Route::get("employmentStatus", [HrController::class,'employmentStatus']);
+
+Route::get("employmentDetails", [HrController::class,'employmentDetails']);
+
+// HR API ROUTE END
