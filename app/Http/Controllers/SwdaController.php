@@ -29,7 +29,17 @@ class SwdaController extends Controller
     }
 
     function regionaloperation(){
-        return Swda::select('RegionalOperation')->get();
+        return Swda::select('Regional_Operation')->get();
     }
+
+    function agencies(){
+        return Swda::select('Registration_Status', 'Registered', 'Licensed', 'Accredited', 'Mode_of_Delivery')->get();
+    }
+
+    function agenciesName(){
+        return Swda::select('Agency')->get();
+    }
+
+
 
 }

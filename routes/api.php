@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\http\Controllers\SwdaController;
 use App\http\Controllers\HrController;
-
+use App\http\Controllers\TblEmployeeController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,6 +20,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// LOGIN API ROUTE START
+Route::get("loginCredentials", [TblEmployeeController::class,'loginCredentials']);
+// LOGIN API ROUTE END
+
+
+
 // SWDA API ROUTE START
 Route::get("list", [SwdaController::class,'list']);
 
@@ -32,6 +38,10 @@ Route::get("sector", [SwdaController::class,'sector']);
 Route::get("clientele", [SwdaController::class,'clientele']);
 
 Route::get("regionaloperation", [SwdaController::class,'regionaloperation']);
+
+Route::get("agencies", [SwdaController::class,'agencies']);
+
+Route::get("agenciesName", [SwdaController::class,'agenciesName']);
 
 // SWDA API ROUTE END
 
