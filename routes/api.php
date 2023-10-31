@@ -43,6 +43,8 @@ Route::get("agencies", [SwdaController::class,'agencies']);
 
 Route::get("agenciesName", [SwdaController::class,'agenciesName']);
 
+
+
 // SWDA API ROUTE END
 
 // HR API ROUTE START
