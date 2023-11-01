@@ -34,6 +34,8 @@ Route::post("swdalist", [SwdaController::class,'store']); //WORKING CREATE NEW S
 Route::get("swdalist/{ID}", [SwdaController::class,'show']); //WORKING GET SPECIFIC SWDA ROW BY GETTING ITS ID
 Route::get("swdalist/{ID}/edit", [SwdaController::class,'edit']); //WORKING GET SPECIFIC ROW BUT USE FOR TESTING FOR PUT METHOD
 Route::put("swdalist/{ID}/edit", [SwdaController::class,'update']); //WORKING EDIT SWDA SPECICIC ROW
+Route::delete("swdalist/{ID}/delete", [SwdaController::class,'destroy']); //WORKING DELETE SWDA SPECICIC ROW
+
 
 Route::get("cluster", [SwdaController::class,'cluster']);
 
