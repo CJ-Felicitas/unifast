@@ -7,17 +7,44 @@ use App\Models\Swda;
 
 class SwdaController extends Controller
 {
-    //
-    function list(){
-        return Swda::all();
+
+    // function swdalist(){
+    //     return Swda::all();
+    // }
+
+    function index(){
+        $Swda = Swda::all();
+        if($Swda->count() > 0){
+            return response()->json([
+                'status' => 200,
+                'Swda' =>  $Swda
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'status' => 404,
+                'Swda' =>  'No Record Found'
+            ], 404);
+        }
     }
+
+    function store (Request $request)
+    {
+        $validator = Validator::make();
+    }
+
+
+
+
+
+
 
     function cluster(){
         return Swda::select('Cluster')->get();
     }
 
     function modeDelivery(){
-        return Swda::select('Mode of Delivery', 'Registration Status')->get();
+        return Swda::select('Mode_of_Delivery', 'Registration_Status')->get();
     }
 
     function sector(){
@@ -36,34 +63,23 @@ class SwdaController extends Controller
         return Swda::select('Registration_Status', 'Registered', 'Licensed', 'Accredited', 'Mode_of_Delivery')->get();
     }
 
+
     function agenciesName(){
-        return Swda::select('Agency',  'Registration_Status', 'License_Status', 'Accreditation_Status','Sector', 'Cluster', 'Type', 'Address', 'Contact_Number', 'Email', 'Website', 'Contact_Person', 'Position', 'Mobile_Number', 'Services_Offered', 'Clientele', 'Mode_of_Delivery', 'Specified_Areas_of_Operation', 'Registration_ID', 'Registration_Date', 'Registration_Expiration', 'Remarks', 'Licensed_ID', 'License_Date_Issued', 'License_Expiration', 'Licensure_Overdue', 'Accreditation_ID', 'Accreditation_Date_Issued', 'Accreditation_Expiration',  'Accreditation_Overdue'
-        )->get();
+        $Swda = Swda::select('Agency',  'Registration_Status', 'License_Status', 'Accreditation_Status','Sector', 'Cluster', 'Type', 'Address', 'Contact_Number', 'Email', 'Website', 'Contact_Person', 'Position', 'Mobile_Number', 'Services_Offered', 'Clientele', 'Mode_of_Delivery', 'Specified_Areas_of_Operation', 'Registration_ID', 'Registration_Date', 'Registration_Expiration', 'Remarks', 'Licensed_ID', 'License_Date_Issued', 'License_Expiration', 'Licensure_Overdue', 'Accreditation_ID', 'Accreditation_Date_Issued', 'Accreditation_Expiration',  'Accreditation_Overdue')->get();
+        if($Swda->count() > 0){
+            return response()->json([
+                'status' => 200,
+                'Swda Agencies' =>  $Swda
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'status' => 404,
+                'Swda Agencies' =>  'No Record Found'
+            ], 404);
+        }
     }
 
-//     function getBasicAgencyInfo()
-//     {
-//         return Swda::select('Agency', 'Sector', 'Cluster', 'Type', 'Address', 'Contact_Number', 'Email', 'Website')
-//             ->get();
-//     }
-
-//    function getRegistrationInfo()
-//     {
-//         return Swda::select('Agency', 'Registration_Status', 'Registration_ID', 'Registration_Date', 'Registration_Expiration', 'Remarks')
-//             ->get();
-//     }
-
-//     function getLicenseInfo()
-//     {
-//         return Swda::select('Agency', 'License_Status', 'Licensed_ID', 'License_Date_Issued', 'License_Expiration', 'Licensure_Overdue')
-//             ->get();
-//     }
-
-//     function getAccreditationInfo()
-//     {
-//         return Swda::select('Agency', 'Accreditation_Status', 'Accreditation_ID', 'Accreditation_Date_Issued', 'Accreditation_Expiration', 'Accreditation_Overdue')
-//             ->get();
-//     }
 
 
 

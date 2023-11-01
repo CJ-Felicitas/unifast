@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\http\Controllers\SwdaController;
+use App\Http\Controllers\SwdaController;
 use App\http\Controllers\HrController;
 use App\http\Controllers\TblEmployeeController;
 /*
@@ -27,7 +27,7 @@ Route::get("loginCredentials", [TblEmployeeController::class,'loginCredentials']
 
 
 // SWDA API ROUTE START
-Route::get("list", [SwdaController::class,'list']);
+Route::get("swdalist", [SwdaController::class,'index']);
 
 Route::get("cluster", [SwdaController::class,'cluster']);
 
