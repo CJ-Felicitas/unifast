@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Swda;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class SwdaController extends Controller
 {
 
-    // function swdalist(){
-    //     return Swda::all();
-    // }
-
+    // GET ALL OF THE TABLE COLUMNS IN SWDA TABLE
     function index(){
         $Swda = Swda::all();
         if($Swda->count() > 0){
@@ -28,9 +26,181 @@ class SwdaController extends Controller
         }
     }
 
-    function store (Request $request)
-    {
-        $validator = Validator::make();
+    // STORE INPUT IN ALL OF THE TABLE COLUMNS IN SWDA TABLE
+    function store(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'Type' => 'max:254',
+            'Sector' => 'max:254',
+            'Cluster' => 'max:254',
+            'Agency' => 'max:254',
+            'Address' => 'max:254',
+            'Former_Name' => 'max:254',
+            'Contact_Number' => 'max:254',
+            'Fax' => 'max:254',
+            'Email' => 'max:254',
+            'Website' => 'max:254',
+            'Contact_Person' => 'max:254',
+            'Position' => 'max:254',
+            'Mobile_Number' => 'max:254',
+            'Registered' => 'max:254',
+            'Licensed' => 'max:254',
+            'Accredited' => 'max:254',
+            'Services_Offered' => 'max:254',
+            'Simplified_Services' => 'max:254',
+            'Area_of_Operation' => 'max:254',
+            'Regional_Operation' => 'max:254',
+            'Specified_Areas_of_Operation' => 'max:254',
+            'Mode_of_Delivery' => 'max:254',
+            'Clientele' => 'max:254',
+            'Registration_ID' => 'max:254',
+            'Registration_Date' => 'max:254',
+            'Registration_Expiration' => 'max:254',
+            'Registration_Status' => 'max:254',
+            'Licensed_ID' => 'max:254',
+            'License_Date_Issued' => 'max:254',
+            'License_Expiration' => 'max:254',
+            'License_Status' => 'max:254',
+            'Accreditation_ID' => 'max:254',
+            'Accreditation_Date_Issued' => 'max:254',
+            'Accreditation_Expiration' => 'max:254',
+            'Accreditation_Status' => 'max:254',
+            'Remarks' => 'max:254',
+            'License_Days_Left' => 'integer',
+            'Licensure_Overdue' => 'integer',
+            'Accreditation_Days_Left' => 'integer',
+            'Accreditation_Overdue' => 'integer',
+        ]);
+
+        // Check if validation fails
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 422,
+                'errors' => $validator->errors()
+            ], 422);
+        }
+           // Create a new Swda record with all validated fields
+        else{
+            $Swda = Swda::create($request->all());
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Swda record created successfully',
+                'data' => $Swda
+            ], 200);
+        }
+    }
+
+    //FIND SWDA RECORD THROUGH ITS ID
+    function show($ID){
+        $swda = Swda::find($ID);
+        if($swda){
+            return response()->json([
+                'status' => 200,
+                'message' => 'Swda record found!',
+                'data' => $swda  // Use lowercase $swda here
+            ], 200);
+        }
+        else {
+            return response()->json([
+                'status' => 404,
+                'message' => "No Data Found!"
+            ], 404);
+        }
+    }
+
+    //GET SPECIFIC ROW BUT USE FOR TESTING FOR PUT METHOD
+    function edit($ID){
+        $swda = Swda::find($ID);
+        if($swda){
+            return response()->json([
+                'status' => 200,
+                'message' => 'Swda record found!',
+                'data' => $swda  // Use lowercase $swda here
+            ], 200);
+        }
+        else {
+            return response()->json([
+                'status' => 404,
+                'message' => "No Data Found!"
+            ], 404);
+        }
+    }
+
+    //EDIT SWDA SPECICIC ROW
+    function update(Request $request, int $ID) {
+        $validator = Validator::make($request->all(), [
+            'Type' => 'max:254',
+            'Sector' => 'max:254',
+            'Cluster' => 'max:254',
+            'Agency' => 'max:254',
+            'Address' => 'max:254',
+            'Former_Name' => 'max:254',
+            'Contact_Number' => 'max:254',
+            'Fax' => 'max:254',
+            'Email' => 'max:254',
+            'Website' => 'max:254',
+            'Contact_Person' => 'max:254',
+            'Position' => 'max:254',
+            'Mobile_Number' => 'max:254',
+            'Registered' => 'max:254',
+            'Licensed' => 'max:254',
+            'Accredited' => 'max:254',
+            'Services_Offered' => 'max:254',
+            'Simplified_Services' => 'max:254',
+            'Area_of_Operation' => 'max:254',
+            'Regional_Operation' => 'max:254',
+            'Specified_Areas_of_Operation' => 'max:254',
+            'Mode_of_Delivery' => 'max:254',
+            'Clientele' => 'max:254',
+            'Registration_ID' => 'max:254',
+            'Registration_Date' => 'max:254',
+            'Registration_Expiration' => 'max:254',
+            'Registration_Status' => 'max:254',
+            'Licensed_ID' => 'max:254',
+            'License_Date_Issued' => 'max:254',
+            'License_Expiration' => 'max:254',
+            'License_Status' => 'max:254',
+            'Accreditation_ID' => 'max:254',
+            'Accreditation_Date_Issued' => 'max:254',
+            'Accreditation_Expiration' => 'max:254',
+            'Accreditation_Status' => 'max:254',
+            'Remarks' => 'max:254',
+            'License_Days_Left' => 'integer',
+            'Licensure_Overdue' => 'integer',
+            'Accreditation_Days_Left' => 'integer',
+            'Accreditation_Overdue' => 'integer',
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 422,
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $Swda = Swda::find($ID);
+
+        if (!$Swda) {
+            return response()->json([
+                'status' => 404,
+                'message' => "No Data Found!"
+            ], 404);
+        }
+
+        try {
+            // Update the record with the request data
+            $Swda->update($request->all());
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Swda record updated successfully',
+                'data' => $Swda // Return the updated record
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 500,
+                'message' => 'Error updating Swda record: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
 

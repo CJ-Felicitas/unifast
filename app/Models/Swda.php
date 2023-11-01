@@ -7,10 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Swda extends Model
 {
-    // use HasFactory;
-
     protected $table = "swda";
-
+    protected $primaryKey = 'ID';
+    public $timestamps = false;
     protected $fillable = [
         'Type',
         'Sector',

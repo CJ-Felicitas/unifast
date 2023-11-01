@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\hr;
+use App\Models\Hr;
 
 class HrController extends Controller
 {

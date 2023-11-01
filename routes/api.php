@@ -27,7 +27,13 @@ Route::get("loginCredentials", [TblEmployeeController::class,'loginCredentials']
 
 
 // SWDA API ROUTE START
-Route::get("swdalist", [SwdaController::class,'index']);
+
+//MAJOR API FOR CRUD
+Route::get("swdalist", [SwdaController::class,'index']); //WORKING GET ALL SWDA COLUMN AND ROW
+Route::post("swdalist", [SwdaController::class,'store']); //WORKING CREATE NEW SWDA ROW
+Route::get("swdalist/{ID}", [SwdaController::class,'show']); //WORKING GET SPECIFIC SWDA ROW BY GETTING ITS ID
+Route::get("swdalist/{ID}/edit", [SwdaController::class,'edit']); //WORKING GET SPECIFIC ROW BUT USE FOR TESTING FOR PUT METHOD
+Route::put("swdalist/{ID}/edit", [SwdaController::class,'update']); //WORKING EDIT SWDA SPECICIC ROW
 
 Route::get("cluster", [SwdaController::class,'cluster']);
 
