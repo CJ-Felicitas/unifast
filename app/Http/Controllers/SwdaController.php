@@ -115,7 +115,7 @@ class SwdaController extends Controller
             return response()->json([
                 'status' => 200,
                 'message' => 'Swda record found!',
-                'data' => $swda  // Use lowercase $swda here
+                'Swda' => $swda  // Use lowercase $swda here
             ], 200);
         }
         else {
@@ -224,32 +224,25 @@ class SwdaController extends Controller
 
 
 
-
+    // THIS FUNCTIONS ARE USED FOR GETTING DATA FOR SELECTED TABLE COLOUMN SPECIFICALLY USED FOR VISUALIZATION ONLY
     function cluster(){
         return Swda::select('Cluster')->get();
     }
-
     function modeDelivery(){
         return Swda::select('Mode_of_Delivery', 'Registration_Status')->get();
     }
-
     function sector(){
         return Swda::select('Sector')->get();
     }
-
     function clientele(){
         return Swda::select('Clientele')->get();
     }
-
     function regionaloperation(){
         return Swda::select('Regional_Operation')->get();
     }
-
     function agencies(){
         return Swda::select('Registration_Status', 'Registered', 'Licensed', 'Accredited', 'Mode_of_Delivery')->get();
     }
-
-
     function agenciesName(){
         $Swda = Swda::select('Agency',  'Registration_Status', 'License_Status', 'Accreditation_Status','Sector', 'Cluster', 'Type', 'Address', 'Contact_Number', 'Email', 'Website', 'Contact_Person', 'Position', 'Mobile_Number', 'Services_Offered', 'Clientele', 'Mode_of_Delivery', 'Specified_Areas_of_Operation', 'Registration_ID', 'Registration_Date', 'Registration_Expiration', 'Remarks', 'Licensed_ID', 'License_Date_Issued', 'License_Expiration', 'Licensure_Overdue', 'Accreditation_ID', 'Accreditation_Date_Issued', 'Accreditation_Expiration',  'Accreditation_Overdue')->get();
         if($Swda->count() > 0){
