@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\http\Controllers\SwdaController;
+use App\Http\Controllers\SwdaController;
 use App\http\Controllers\HrController;
 use App\http\Controllers\TblEmployeeController;
 /*
@@ -27,20 +27,22 @@ Route::get("loginCredentials", [TblEmployeeController::class,'loginCredentials']
 
 
 // SWDA API ROUTE START
-Route::get("list", [SwdaController::class,'list']);
 
+//MAJOR API FOR CRUD APPLICATION FOR SWDA ADMIN FRONTEND
+Route::get("swdalist", [SwdaController::class,'index']); //WORKING GET ALL SWDA COLUMN AND ROW
+Route::post("swdalist", [SwdaController::class,'store']); //WORKING CREATE NEW SWDA ROW
+Route::get("swdalist/{ID}", [SwdaController::class,'show']); //WORKING GET SPECIFIC SWDA ROW BY GETTING ITS ID
+Route::get("swdalist/{ID}/edit", [SwdaController::class,'edit']); //WORKING GET SPECIFIC ROW BUT USE FOR TESTING FOR PUT METHOD
+Route::put("swdalist/{ID}/edit", [SwdaController::class,'update']); //WORKING EDIT SWDA SPECICIC ROW
+Route::delete("swdalist/{ID}/delete", [SwdaController::class,'destroy']); //WORKING DELETE SWDA SPECICIC ROW
+
+//SPECIFICALLY USED FOR GETTING DATA FOR CHARTJS COMPONENTS IN FRONTEND
 Route::get("cluster", [SwdaController::class,'cluster']);
-
 Route::get("modeDelivery", [SwdaController::class,'modeDelivery']);
-
 Route::get("sector", [SwdaController::class,'sector']);
-
 Route::get("clientele", [SwdaController::class,'clientele']);
-
 Route::get("regionaloperation", [SwdaController::class,'regionaloperation']);
-
 Route::get("agencies", [SwdaController::class,'agencies']);
-
 Route::get("agenciesName", [SwdaController::class,'agenciesName']);
 
 
@@ -48,8 +50,10 @@ Route::get("agenciesName", [SwdaController::class,'agenciesName']);
 // SWDA API ROUTE END
 
 // HR API ROUTE START
-Route::get("employmentStatus", [HrController::class,'employmentStatus']);
 
+
+//SPECIFICALLY USED FOR GETTING DATA FOR CHARTJS COMPONENTS IN FRONTEND
+Route::get("employmentStatus", [HrController::class,'employmentStatus']);
 Route::get("employmentDetails", [HrController::class,'employmentDetails']);
 
 // HR API ROUTE END
