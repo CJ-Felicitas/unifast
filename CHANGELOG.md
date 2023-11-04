@@ -7,3 +7,5 @@
 ## version 1.3 Added CRUD FUNCTIONS IN SwdaController (Delete) - MARLO BARUA
 
 ## version 1.4 Added CRUD FUNCTION IN HrController (Read, Create, Edit and Delete) - MARLO BARUA
+
+## version 1.5 Fix table columns in SQL FILE and Fix the table column in the HR Model and Controller
