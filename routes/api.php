@@ -29,12 +29,12 @@ Route::get("loginCredentials", [TblEmployeeController::class,'loginCredentials']
 // SWDA API ROUTE START
 
 //MAJOR API FOR CRUD APPLICATION FOR SWDA ADMIN FRONTEND
-Route::get("swdalist", [SwdaController::class,'index']); //WORKING GET ALL SWDA COLUMN AND ROW
-Route::post("swdalist", [SwdaController::class,'store']); //WORKING CREATE NEW SWDA ROW
-Route::get("swdalist/{ID}", [SwdaController::class,'show']); //WORKING GET SPECIFIC SWDA ROW BY GETTING ITS ID
-Route::get("swdalist/{ID}/edit", [SwdaController::class,'edit']); //WORKING GET SPECIFIC ROW BUT USE FOR TESTING FOR PUT METHOD
-Route::put("swdalist/{ID}/edit", [SwdaController::class,'update']); //WORKING EDIT SWDA SPECICIC ROW
-Route::delete("swdalist/{ID}/delete", [SwdaController::class,'destroy']); //WORKING DELETE SWDA SPECICIC ROW
+Route::get("swdalist", [SwdaController::class,'swdaIndex']); //WORKING GET ALL SWDA COLUMN AND ROW
+Route::post("swdalist", [SwdaController::class,'swdaStore']); //WORKING CREATE NEW SWDA ROW
+Route::get("swdalist/{ID}", [SwdaController::class,'swdaShow']); //WORKING GET SPECIFIC SWDA ROW BY GETTING ITS ID
+Route::get("swdalist/{ID}/edit", [SwdaController::class,'swdaEdit']); //WORKING GET SPECIFIC ROW BUT USE FOR TESTING FOR PUT METHOD
+Route::put("swdalist/{ID}/edit", [SwdaController::class,'swdaUpdate']); //WORKING EDIT SWDA SPECICIC ROW
+Route::delete("swdalist/{ID}/delete", [SwdaController::class,'swdaDestroy']); //WORKING DELETE SWDA SPECICIC ROW
 
 //SPECIFICALLY USED FOR GETTING DATA FOR CHARTJS COMPONENTS IN FRONTEND
 Route::get("cluster", [SwdaController::class,'cluster']);
@@ -45,11 +45,20 @@ Route::get("regionaloperation", [SwdaController::class,'regionaloperation']);
 Route::get("agencies", [SwdaController::class,'agencies']);
 Route::get("agenciesName", [SwdaController::class,'agenciesName']);
 
-
-
 // SWDA API ROUTE END
 
+
+
+
 // HR API ROUTE START
+//MAJOR API FOR CRUD APPLICATION FOR HR ADMIN FRONTEND
+Route::get("hrlist", [HrController::class,'hrIndex']); //WORKING GET ALL HR COLUMN AND ROW
+Route::post("hrlist", [HrController::class,'hrStore']); //WORKING CREATE NEW HR ROW
+Route::get("hrlist/{ID}", [HrController::class,'hrShow']); //WORKING GET SPECIFIC HR ROW BY GETTING ITS ID
+Route::get("hrlist/{ID}/edit", [HrController::class,'hrEdit']); //WORKING GET SPECIFIC ROW BUT USE FOR TESTING FOR PUT METHOD
+Route::put("hrlist/{ID}/edit", [HrController::class,'hrUpdate']); //WORKING EDIT HR SPECICIC ROW
+Route::delete("hrlist/{ID}/delete", [HrController::class,'hrDestroy']); //WORKING DELETE HR SPECICIC ROW
+
 
 
 //SPECIFICALLY USED FOR GETTING DATA FOR CHARTJS COMPONENTS IN FRONTEND

@@ -10,7 +10,7 @@ class SwdaController extends Controller
 {
 
     // GET ALL OF THE TABLE COLUMNS IN SWDA TABLE
-    function index(){
+    function swdaIndex(){
         $Swda = Swda::all();
         if($Swda->count() > 0){
             return response()->json([
@@ -27,7 +27,7 @@ class SwdaController extends Controller
     }
 
     // STORE INPUT IN ALL OF THE TABLE COLUMNS IN SWDA TABLE
-    function store(Request $request) {
+    function swdaStore(Request $request) {
         $validator = Validator::make($request->all(), [
             'Type' => 'max:999',
             'Sector' => 'max:999',
@@ -91,7 +91,7 @@ class SwdaController extends Controller
     }
 
     //FIND SWDA RECORD THROUGH ITS ID
-    function show($ID){
+    function swdaShow($ID){
         $swda = Swda::find($ID);
         if($swda){
             return response()->json([
@@ -109,7 +109,7 @@ class SwdaController extends Controller
     }
 
     //GET SPECIFIC ROW BUT USE FOR TESTING FOR PUT METHOD
-    function edit($ID){
+    function swdaEdit($ID){
         $swda = Swda::find($ID);
         if($swda){
             return response()->json([
@@ -127,7 +127,7 @@ class SwdaController extends Controller
     }
 
     //EDIT SWDA SPECICIC ROW
-    function update(Request $request, int $ID) {
+    function swdaUpdate(Request $request, int $ID) {
         $validator = Validator::make($request->all(), [
             'Type' => 'max:999',
             'Sector' => 'max:999',
@@ -205,7 +205,7 @@ class SwdaController extends Controller
     }
 
     //DELETE SWDA SPECICIC ROW
-    function destroy($ID) {
+    function swdaDestroy($ID) {
         $swda = Swda::find($ID);
 
         if ($swda) {
