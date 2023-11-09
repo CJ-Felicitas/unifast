@@ -10,7 +10,7 @@ class SwdaController extends Controller
 {
 
     // GET ALL OF THE TABLE COLUMNS IN SWDA TABLE
-    function index(){
+    function swdaIndex(){
         $Swda = Swda::all();
         if($Swda->count() > 0){
             return response()->json([
@@ -27,7 +27,7 @@ class SwdaController extends Controller
     }
 
     // STORE INPUT IN ALL OF THE TABLE COLUMNS IN SWDA TABLE
-    function store(Request $request) {
+    function swdaStore(Request $request) {
         $validator = Validator::make($request->all(), [
             'Type' => 'max:999',
             'Sector' => 'max:999',
@@ -91,7 +91,7 @@ class SwdaController extends Controller
     }
 
     //FIND SWDA RECORD THROUGH ITS ID
-    function show($ID){
+    function swdaShow($ID){
         $swda = Swda::find($ID);
         if($swda){
             return response()->json([
@@ -109,7 +109,7 @@ class SwdaController extends Controller
     }
 
     //GET SPECIFIC ROW BUT USE FOR TESTING FOR PUT METHOD
-    function edit($ID){
+    function swdaEdit($ID){
         $swda = Swda::find($ID);
         if($swda){
             return response()->json([
@@ -127,7 +127,7 @@ class SwdaController extends Controller
     }
 
     //EDIT SWDA SPECICIC ROW
-    function update(Request $request, int $ID) {
+    function swdaUpdate(Request $request, int $ID) {
         $validator = Validator::make($request->all(), [
             'Type' => 'max:999',
             'Sector' => 'max:999',
@@ -204,15 +204,15 @@ class SwdaController extends Controller
         }
     }
 
-    //DELETE SWDA SPECICIC ROW
-    function destroy($ID) {
+    //ARHIVE SWDA SPECICIC ROW
+    function swdaArchive($ID) {
         $swda = Swda::find($ID);
 
         if ($swda) {
-            $swda->delete();
+            $swda->delete(); // This line will perform a soft delete
             return response()->json([
                 'status' => 200,
-                'message' => 'Swda record deleted successfully'
+                'message' => 'Swda record archived successfully'
             ], 200);
         } else {
             return response()->json([
@@ -221,6 +221,63 @@ class SwdaController extends Controller
             ], 404);
         }
     }
+
+
+    //FIND SWDA ARCHIVE RECORD THROUGH ITS ID
+    function swdaArchiveFind($ID){
+        $swda = Swda::onlyTrashed()->find($ID);
+        if($swda){
+            return response()->json([
+                'status' => 200,
+                'message' => 'Swda archive record found!',
+                'data' => $swda
+            ], 200);
+        }
+        else {
+            return response()->json([
+                'status' => 404,
+                'message' => "No Data Found!"
+            ], 404);
+        }
+    }
+
+
+    //GET ALL ARCHIVED DATA
+    function swdaGetArchived() {
+        $onlySoftDeletedRecords = Swda::onlyTrashed()->get(); // Execute the query to retrieve records
+        if ($onlySoftDeletedRecords->count() > 0) {
+            return response()->json([
+                'status' => 200,
+                'ArchivedSwda' => $onlySoftDeletedRecords
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'ArchivedSwda' => 'No Record Found'
+            ], 404);
+        }
+    }
+
+    //RESTORE SPECIFIC ARCHIVE DATA
+    function swdaRestore($ID){
+        $swda = Swda::withTrashed()->find($ID);
+
+        if ($swda) {
+            $swda->restore(); // This line will restore the specific ID from archived to active data
+            return response()->json([
+                'status' => 200,
+                'message' => 'Swda archived restored successfully'
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message' => "No Data Found! No Data to be Restored!"
+            ], 404);
+        }
+    }
+
+
+
 
 
 
