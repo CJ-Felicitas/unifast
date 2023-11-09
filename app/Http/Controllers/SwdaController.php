@@ -204,15 +204,15 @@ class SwdaController extends Controller
         }
     }
 
-    //DELETE SWDA SPECICIC ROW
-    function swdaDestroy($ID) {
+    //ARHIVE SWDA SPECICIC ROW
+    function swdaArchive($ID) {
         $swda = Swda::find($ID);
 
         if ($swda) {
-            $swda->delete();
+            $swda->delete(); // This line will perform a soft delete
             return response()->json([
                 'status' => 200,
-                'message' => 'Swda record deleted successfully'
+                'message' => 'Swda record archived successfully'
             ], 200);
         } else {
             return response()->json([
@@ -221,6 +221,63 @@ class SwdaController extends Controller
             ], 404);
         }
     }
+
+
+    //FIND SWDA ARCHIVE RECORD THROUGH ITS ID
+    function swdaArchiveFind($ID){
+        $swda = Swda::onlyTrashed()->find($ID);
+        if($swda){
+            return response()->json([
+                'status' => 200,
+                'message' => 'Swda archive record found!',
+                'data' => $swda
+            ], 200);
+        }
+        else {
+            return response()->json([
+                'status' => 404,
+                'message' => "No Data Found!"
+            ], 404);
+        }
+    }
+
+
+    //GET ALL ARCHIVED DATA
+    function swdaGetArchived() {
+        $onlySoftDeletedRecords = Swda::onlyTrashed()->get(); // Execute the query to retrieve records
+        if ($onlySoftDeletedRecords->count() > 0) {
+            return response()->json([
+                'status' => 200,
+                'ArchivedSwda' => $onlySoftDeletedRecords
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'ArchivedSwda' => 'No Record Found'
+            ], 404);
+        }
+    }
+
+    //RESTORE SPECIFIC ARCHIVE DATA
+    function swdaRestore($ID){
+        $swda = Swda::withTrashed()->find($ID);
+
+        if ($swda) {
+            $swda->restore(); // This line will restore the specific ID from archived to active data
+            return response()->json([
+                'status' => 200,
+                'message' => 'Swda archived restored successfully'
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message' => "No Data Found! No Data to be Restored!"
+            ], 404);
+        }
+    }
+
+
+
 
 
 

@@ -25,8 +25,9 @@ Route::get("loginCredentials", [TblEmployeeController::class,'loginCredentials']
 // LOGIN API ROUTE END
 
 
-
-// SWDA API ROUTE START
+//! ////////////////////////////////////////////////////////////////////////
+//! SWDA API ROUTE START
+//! ////////////////////////////////////////////////////////////////////////
 
 //MAJOR API FOR CRUD APPLICATION FOR SWDA ADMIN FRONTEND
 Route::get("swdalist", [SwdaController::class,'swdaIndex']); //WORKING GET ALL SWDA COLUMN AND ROW
@@ -34,7 +35,11 @@ Route::post("swdalist", [SwdaController::class,'swdaStore']); //WORKING CREATE N
 Route::get("swdalist/{ID}", [SwdaController::class,'swdaShow']); //WORKING GET SPECIFIC SWDA ROW BY GETTING ITS ID
 Route::get("swdalist/{ID}/edit", [SwdaController::class,'swdaEdit']); //WORKING GET SPECIFIC ROW BUT USE FOR TESTING FOR PUT METHOD
 Route::put("swdalist/{ID}/edit", [SwdaController::class,'swdaUpdate']); //WORKING EDIT SWDA SPECICIC ROW
-Route::delete("swdalist/{ID}/delete", [SwdaController::class,'swdaDestroy']); //WORKING DELETE SWDA SPECICIC ROW
+Route::delete("swdalist/{ID}/delete", [SwdaController::class,'swdaArchive']); //WORKING DELETE SWDA SPECICIC ROW
+
+Route::get("swdaArchived", [SwdaController::class,'swdaGetArchived']);
+Route::get("swdaArchived/{ID}", [SwdaController::class,'swdaArchiveFind']);
+Route::post("swdaArchived/{ID}/restore", [SwdaController::class,'swdaRestore']);
 
 //SPECIFICALLY USED FOR GETTING DATA FOR CHARTJS COMPONENTS IN FRONTEND
 Route::get("cluster", [SwdaController::class,'cluster']);
@@ -45,12 +50,17 @@ Route::get("regionaloperation", [SwdaController::class,'regionaloperation']);
 Route::get("agencies", [SwdaController::class,'agencies']);
 Route::get("agenciesName", [SwdaController::class,'agenciesName']);
 
-// SWDA API ROUTE END
+
+//! ////////////////////////////////////////////////////////////////////////
+//! SWDA API ROUTE END
+//! ////////////////////////////////////////////////////////////////////////
 
 
+//? ////////////////////////////////////////////////////////////////////////
+//?  HR API ROUTE START
+//? ////////////////////////////////////////////////////////////////////////
 
 
-// HR API ROUTE START
 //MAJOR API FOR CRUD APPLICATION FOR HR ADMIN FRONTEND
 Route::get("hrlist", [HrController::class,'hrIndex']); //WORKING GET ALL HR COLUMN AND ROW
 Route::post("hrlist", [HrController::class,'hrStore']); //WORKING CREATE NEW HR ROW
@@ -65,4 +75,7 @@ Route::delete("hrlist/{ID}/delete", [HrController::class,'hrDestroy']); //WORKIN
 Route::get("employmentStatus", [HrController::class,'employmentStatus']);
 Route::get("employmentDetails", [HrController::class,'employmentDetails']);
 
-// HR API ROUTE END
+
+//? ////////////////////////////////////////////////////////////////////////
+//? HR API ROUTE END
+//? ////////////////////////////////////////////////////////////////////////

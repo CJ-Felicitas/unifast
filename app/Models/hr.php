@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class hr extends Model
 {
-    public $table = "hr";
+    public $table = "dswd_hr";
     protected $primaryKey = 'ID';
     public $timestamps = false;
     protected $fillable = [
