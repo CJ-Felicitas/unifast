@@ -2,86 +2,158 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\user_User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    // Get a list of users
-    public function index()
-    {
-        $users = user_User::all();
-        return response()->json($users);
-    }
+
+   // Get a list of user credentials
+   public function index()
+   {
+       $users = user_User::all();
+
+       if($users->count() > 0){
+           return response()->json([
+               'status' => 200,
+               'User' =>  $users
+           ], 200);
+       }
+       else{
+           return response()->json([
+               'status' => 404,
+               'User' =>  'No Record Found'
+           ], 404);
+       }
+
+   }
 
     // Get details of a specific user
     public function show($id)
-    {
-        $user = user_User::find($id);
+       {
+           $users = user_User::find($id);
 
-        if (!$user) {
-            return response()->json(['error' => 'User not found'], 404);
-        }
+           if($users){
+               return response()->json([
+                   'status' => 200,
+                   'message' => 'User credential is available',
+                   'User' => $users
+               ], 200);
+           }
+           else {
+               return response()->json([
+                   'status' => 404,
+                   'Error' => "User not Found"
+               ], 404);
+           }
+       }
 
-        return response()->json($user);
-    }
 
-    // Store a newly created user in the database
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
-            // Add any additional validation rules as needed
-        ]);
 
-        // Hash the password before saving
-        $request['password'] = Hash::make($request['password']);
 
-        $user = user_User::create($request->all());
+       // Store a newly created user in the database
+       public function store(Request $request){
+           $validator = Validator::make($request->all(),
+       [
+           'name' => 'required|string',
+           'email' => 'required|email|unique:users',
+           'password' => 'required|min:6',
+       ]);
 
-        return response()->json($user, 201);
-    }
+           if ($validator->fails()) {
+               return response()->json(['errors' => $validator->errors()], 400);
+           }
 
-    // Update the specified user in the database
-    public function update(Request $request, $id)
-    {
-        $user = user_User::find($id);
+           $hashedPassword = bcrypt($request->input('password'));
 
-        if (!$user) {
-            return response()->json(['error' => 'User not found'], 404);
-        }
+           $users = user_User::create([
+               'name' => $request->input('name'),
+               'email' => $request->input('email'),
+               'password' => $hashedPassword,
+           ]);
 
-        $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users,email,' . $id,
-            'password' => 'sometimes|min:6', // Password is only required on update if provided
-            // Add any additional validation rules as needed
-        ]);
+           return response()->json(['user' => $users, 'message' => 'User created successfully'], 201);
+       }
 
-        // Hash the password if it's present in the request
-        if ($request->has('password')) {
-            $request['password'] = Hash::make($request['password']);
-        }
 
-        $user->update($request->all());
 
-        return response()->json($user, 200);
-    }
+   // Update the specified user in the database
+   public function update(Request $request, $id)
+   {
+       $users = user_User::find($id);
 
-    // Remove the specified user from the database
-    public function destroy($id)
-    {
-        $user = user_User::find($id);
+       if (!$users) {
+           return response()->json(['error' => 'User not found'], 404);
+       }
 
-        if (!$user) {
-            return response()->json(['error' => 'User not found'], 404);
-        }
+       $validator = Validator::make($request->all(), [
+           'name' => 'required|string',
+           'email' => 'required|email|unique:users,email,' . $id,
+           'password' => 'sometimes|min:6', // Password is only required on update if provided
+           // Add any additional validation rules as needed
+       ]);
 
-        $user->delete();
+       if ($validator->fails()) {
+           return response()->json(['errors' => $validator->errors()], 400);
+       }
 
-        return response()->json(['message' => 'User deleted successfully'], 200);
-    }
+       // Hash the password if it's present in the request
+       if ($request->has('password')) {
+           $request['password'] = bcrypt($request['password']);
+       }
+
+       $users->update($request->all());
+
+       return response()->json(['user' => $users, 'message' => 'User updated successfully'], 200);
+   }
+
+       //! Remove the specified user from the database NOT YET FIXED
+   public function destroy($id)
+   {
+       $users = user_User::find($id);
+
+       if (!$users) {
+           return response()->json(['error' => 'User not found'], 404);
+       }
+
+       try {
+           $users->delete();
+       } catch (\Exception $e) {
+           // Handle any potential exception, e.g., database errors
+           return response()->json(['error' => 'Failed to delete user'], 500);
+       }
+
+       return response()->json(['message' => 'User deleted successfully'], 200);
+   }
+
+
+
+
+   public function login(Request $request){
+       $validator = Validator::make($request->all(),
+       [
+           'email' => 'required|email',
+           'password' => 'required|min:6',
+       ]);
+
+       if ($validator->fails()) {
+           return response()->json(['errors' => $validator->errors()], 400);
+       }
+
+       $users = user_User::where('email', $request->input('email'))->first();
+
+       if (!$users) {
+           return response()->json(['error' => 'User not found'], 404);
+       }
+
+       if (Hash::check($request->input('password'), $users->password)) {
+           return response()->json(['Response' => "User Accepted"], 200);
+       } else {
+           return response()->json(['error' => 'Password mismatch'], 400);
+       }
+   }
+
+
 }

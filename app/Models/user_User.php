@@ -23,7 +23,5 @@ class user_User extends Model
         'remember_token',
     ];
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+
 }

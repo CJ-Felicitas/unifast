@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\http\Controllers\HrController;
 use App\Http\Controllers\SwdaController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\http\Controllers\TblEmployeeController;
 /*
@@ -29,6 +30,14 @@ Route::get("getAdmin", [AdminController::class,'index']);
 Route::get("getAdmin/{id}", [AdminController::class,'show']);
 Route::post("storeAdmin", [AdminController::class,'store']);
 Route::put("getAdmin/{ID}/edit", [AdminController::class,'update']);
+Route::post('AdminLogin', [AdminController::class, 'login']);
+
+
+Route::get("getUser", [UserController::class,'index']);
+Route::get("getUser/{id}", [UserController::class,'show']);
+Route::post("storeUser", [UserController::class,'store']);
+Route::put("getUser/{ID}/edit", [UserController::class,'update']);
+Route::post('UserLogin', [UserController::class, 'login']);
 // LOGIN API ROUTE END
 
 

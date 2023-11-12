@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class AdminController extends Controller
-{
+    class AdminController extends Controller
+    {
+
+
     // Get a list of admin credentials
     public function index()
     {
@@ -29,8 +31,8 @@ class AdminController extends Controller
 
     }
 
-        // Get details of a specific admin
-        public function show($id)
+     // Get details of a specific admin
+     public function show($id)
         {
             $admins = user_Admin::find($id);
 
@@ -53,8 +55,7 @@ class AdminController extends Controller
 
 
         // Store a newly created user in the database
-        public function store(Request $request)
-        {
+        public function store(Request $request){
             $validator = Validator::make($request->all(),
         [
             'name' => 'required|string',
@@ -74,7 +75,7 @@ class AdminController extends Controller
                 'password' => $hashedPassword,
             ]);
 
-            return response()->json(['user' => $admin, 'message' => 'Admin created successfully'], 201);
+            return response()->json(['admin' => $admin, 'message' => 'Admin created successfully'], 201);
         }
 
 
@@ -109,22 +110,49 @@ class AdminController extends Controller
         return response()->json(['user' => $admin, 'message' => 'Admin updated successfully'], 200);
     }
 
-    //! Remove the specified admin from the database NOT YET FIXED
-  public function destroy($id)
-  {
-      $admin = user_Admin::find($id);
+        //! Remove the specified admin from the database NOT YET FIXED
+    public function destroy($id)
+    {
+        $admin = user_Admin::find($id);
 
-      if (!$admin) {
-          return response()->json(['error' => 'Admin not found'], 404);
-      }
+        if (!$admin) {
+            return response()->json(['error' => 'Admin not found'], 404);
+        }
 
-      try {
-          $admin->delete();
-      } catch (\Exception $e) {
-          // Handle any potential exception, e.g., database errors
-          return response()->json(['error' => 'Failed to delete admin'], 500);
-      }
+        try {
+            $admin->delete();
+        } catch (\Exception $e) {
+            // Handle any potential exception, e.g., database errors
+            return response()->json(['error' => 'Failed to delete admin'], 500);
+        }
 
-      return response()->json(['message' => 'Admin deleted successfully'], 200);
-  }
+        return response()->json(['message' => 'Admin deleted successfully'], 200);
+    }
+
+
+
+
+    public function login(Request $request){
+        $validator = Validator::make($request->all(),
+        [
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+
+        $admin = user_Admin::where('email', $request->input('email'))->first();
+
+        if (!$admin) {
+            return response()->json(['error' => 'Admin not found'], 404);
+        }
+
+        if (Hash::check($request->input('password'), $admin->password)) {
+            return response()->json(['Response' => "Admin Accepted"], 200);
+        } else {
+            return response()->json(['error' => 'Password mismatch'], 400);
+        }
+    }
 }
