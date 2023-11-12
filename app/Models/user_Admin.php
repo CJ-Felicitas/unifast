@@ -14,6 +14,7 @@ class user_Admin extends Model
         'name',
         'email',
         'password',
+        'role',
         // Add any additional fields you need for admins
     ];
 

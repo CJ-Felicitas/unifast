@@ -60,7 +60,9 @@ use Illuminate\Support\Facades\Validator;
         [
             'name' => 'required|string',
             'email' => 'required|email|unique:admins',
+            'role' => 'required|string|in:admin,user',
             'password' => 'required|min:6',
+
         ]);
 
             if ($validator->fails()) {
@@ -72,6 +74,7 @@ use Illuminate\Support\Facades\Validator;
             $admin = user_Admin::create([
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
+                'role' => $request->input('role'),
                 'password' => $hashedPassword,
             ]);
 
@@ -92,6 +95,7 @@ use Illuminate\Support\Facades\Validator;
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'email' => 'required|email|unique:admins,email,' . $id,
+            'role' => 'required|string|in:admin,user',
             'password' => 'sometimes|min:6', // Password is only required on update if provided
             // Add any additional validation rules as needed
         ]);
@@ -150,7 +154,7 @@ use Illuminate\Support\Facades\Validator;
         }
 
         if (Hash::check($request->input('password'), $admin->password)) {
-            return response()->json(['Response' => "Admin Accepted"], 200);
+            return response()->json(['Response' => "Accepted", 'Role' => $admin->role], 200);
         } else {
             return response()->json(['error' => 'Password mismatch'], 400);
         }
