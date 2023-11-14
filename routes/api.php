@@ -2,8 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SwdaController;
 use App\http\Controllers\HrController;
+use App\Http\Controllers\SwdaController;
+use App\Http\Controllers\AdminController;
 use App\http\Controllers\TblEmployeeController;
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // LOGIN API ROUTE START
 Route::get("loginCredentials", [TblEmployeeController::class,'loginCredentials']);
+
+//TEST LOGIN ADMIN AND USER
+Route::get("getAdmin", [AdminController::class,'index']);
+Route::get("getAdmin/{id}", [AdminController::class,'show']);
+Route::post("storeAdmin", [AdminController::class,'store']);
+Route::put("getAdmin/{ID}/edit", [AdminController::class,'update']);
+Route::post('adminLogin', [AdminController::class, 'login']);
+
+
+
 // LOGIN API ROUTE END
 
 
