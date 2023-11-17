@@ -13,3 +13,5 @@
 ## version 1.6 implemented SOFT DELETE instead of PERMANENT DELETE for the purpose of File Retention
 
 ## version 1.7 Add AdminController and update SwdaController in api.php
+
+## version 1.8 Delete migration files and update API routes specifically in HR CONTROLLER (ARCHIVAL FUNCTIONALITY)

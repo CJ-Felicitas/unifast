@@ -4,19 +4,17 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePasswordResetsTable extends Migration
+class AddDeletedAtToDswdHrTable extends Migration
 {
-    /**
+  /**
      * Run the migrations.
      *
      * @return void
      */
     public function up()
     {
-        Schema::create('password_resets', function (Blueprint $table) {
-            $table->string('email')->index();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
+        Schema::table('dswd_hr', function (Blueprint $table) {
+            $table->softDeletes(); // This line adds the `deleted_at` column
         });
     }
 
@@ -27,6 +25,8 @@ class CreatePasswordResetsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('password_resets');
+        Schema::table('dswd_hr', function (Blueprint $table) {
+            $table->dropColumn('deleted_at'); // This line removes the `deleted_at` column
+        });
     }
 }

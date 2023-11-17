@@ -6,7 +6,6 @@ use App\Models\Hr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-
 class HrController extends Controller
 {
 
@@ -30,84 +29,82 @@ class HrController extends Controller
     // STORE INPUT IN ALL OF THE TABLE COLUMNS IN HR TABLE
     function hrStore(Request $request) {
         $validator = Validator::make($request->all(), [
-            'NO' => 'max:999',
-            'DIVISION' => 'max:999',
-            'SECTION/UNIT' => 'max:999',
-            'OFFICE_LOCATION' => 'max:999',
-            'ITEM_NUMBER' => 'max:999',
-            'DATE_POSITION' => 'max:999',
-            'POSITION_TITLE' => 'max:999',
-            'PARENTHETICAL_TITLE' => 'max:999',
-            'POSITION_LEVEL' => 'max:999',
-            'SG' => 'max:999',
-            'SALARY_STEP_INCREMENT' => 'max:999',
-            'MONTHLY_RATE' => 'max:999',
-            'DESIGNATION' => 'max:999',
-            'DATE_OF_DESIGNATION' => 'max:999',
-            'SPECIAL_ORDER_NO.' => 'max:999',
-            'OFFICE_BUREAU_SERVICE_PROGRAM' => 'max:999',
-            'FUND_SOURCE_FOR_CONTRACTUAL' => 'max:999',
-            'EMPLOYMENT_STATUS' => 'max:999',
-            'STATUS_FILLED_UNFILLED' => 'max:999',
-            'MODE_OF_ACCESSION' => 'max:999',
-            'DATE_FILLED_UP_ASSUMPTION' => 'max:999',
-            'FULL_NAME' => 'max:999',
-            'LASTNAME' => 'max:999',
-            'FIRST_NAME' => 'max:999',
-            'MIDDLE_NAME' => 'max:999',
-            'EXT.' => 'max:999',
-            'DATE_OF_ORIGINAL_APPOINTMENT' => 'max:999',
-            'DATE_OF_LAST_PROMOTION' => 'max:999',
-            'ENTRY_DATE_IN_DSWD' => 'max:999',
-            'ELIGIBILITY_CSC_and_other_eligibilities' => 'max:999',
-            'ELIGIBILITY_License_RA_1080' => 'max:999',
-            'LICENSE' => 'max:999',
-            'HIGHEST_LVL_OF_ELIGIBILITY_1ST_AND_2ND' => 'max:999',
-            'HIGHEST_EDUCATION_COMPLETED' => 'max:999',
-            'DEGREE_AND_COURSE_1st_Course_Vocational' => 'max:999',
-            'DEGREE_AND_COURSE_2nd Course' => 'max:999',
-            'OTHER_COURSE' => 'max:999',
-            'MASTERS_OR_DOCTORAL_DEGREE' => 'max:999',
-            'GENDER' => 'max:999',
-            'DATE_OF_BIRTH' => 'max:999',
-            'AGE' => 'max:999',
-            'CIVIL_STATUS' => 'max:999',
-            'STREET_Current' => 'max:999',
-            'PUROK/SUBDIVISION_Current' => 'max:999',
-            'BARANGAY_Current' => 'max:999',
-            'CITY/MUNICIPALITY_Current' => 'max:999',
-            'PROVINCE_Current' => 'max:999',
-            'PERMANENT_ADDRESS' => 'max:999',
-            'PERMANENT_ADDRESS_Street' => 'max:999',
-            'PERMANENT_ADDRESS_Purok' => 'max:999',
-            'PERMANENT_ADDRESS_Subdivision_Community_Village' => 'max:999',
-            'PERMANENT_ADDRESS_Barangay' => 'max:999',
-            'PERMANENT_ADDRESS_Region' => 'max:999',
-            'PERMANENT_ADDRESS_City_Municipality' => 'max:999',
-            'PERMANENT_ADDRESS_Province' => 'max:999',
-            'BD' => 'max:999',
-            'INDICATE_WHETHER_SOLO_PARENT' => 'max:999',
-            'INDICATE_WHETHER_SENIOR_CITIZEN' => 'max:999',
-            'INDICATE_WHETHER_PWD' => 'max:999',
-            'TYPE_OF_DISABILITY' => 'max:999',
-            'INDICATE_IF_INDIGINOUS_GROUP' => 'max:999',
-            'ACTIVE_AND_WORKING_EMAIL_ADDRESS' => 'max:999',
-            'FORMER_INCUMBENT' => 'max:999',
-            'MODE_OF_SEPARATION' => 'max:999',
-            'DATE_VACATED' => 'max:999',
-            'REMARKS_STATUS_OF_VACANT_POSITION' => 'max:999',
-            'EMPLOYEE_ID_NO' => 'max:999',
-            'BIR_TIN.NO.' => 'max:999',
-            'PHILHEALTH_NUMBER' => 'max:999',
-            'SSS_NUMBER' => 'max:999',
-            'PAG-IBIG_NUMBER' => 'max:999',
-            'GSIS_NUMBER' => 'max:999',
-            'BLOOD_TYPE' => 'max:999',
-            'HIGHEST_LEVEL_OF_ELIGIBILITY_1ST_AND_2ND' => 'max:999',
-            'HIGHEST_LEVEL__ELIGIBILITY_1ST_AND_2ND' => 'max:999',
-            'ELIGIBILITY_CSC_and_other eligibilities' => 'max:999',
+            'division' => 'max:999',
+            'section_unit' => 'max:999',
+            'office_location' => 'max:999',
+            'item_number' => 'max:999',
+            'date_position' => 'max:999',
+            'position_title' => 'max:999',
+            'parenthetical_title' => 'max:999',
+            'position_level' => 'max:999',
+            'sg' => 'max:999',
+            'salary_step_increment' => 'max:999',
+            'monthly_rate' => 'max:999',
+            'designation' => 'max:999',
+            'date_of_designation' => 'max:999',
+            'special_order_no' => 'max:999',
+            'office_bureau_service_program' => 'max:999',
+            'fund_source_for_contractual' => 'max:999',
+            'employment_status' => 'max:999',
+            'status_filled_unfilled' => 'max:999',
+            'mode_of_accession' => 'max:999',
+            'date_filled_up_assumption' => 'max:999',
+            'full_name' => 'max:999',
+            'last_name' => 'max:999',
+            'first_name' => 'max:999',
+            'middle_name' => 'max:999',
+            'ext' => 'max:999',
+            'date_of_original_appointment' => 'max:999',
+            'date_of_last_promotion' => 'max:999',
+            'entry_date_in_dswd' => 'max:999',
+            'eligibility_csc_and_other_eligibilities' => 'max:999',
+            'eligibility_license_ra_1080' => 'max:999',
+            'license' => 'max:999',
+            'highest_level_of_eligibility_1st_2nd' => 'max:999',
+            'highest_education_completed' => 'max:999',
+            'degree_and_course_1st_course_vocational' => 'max:999',
+            'degree_and_course_2nd_course' => 'max:999',
+            'other_course' => 'max:999',
+            'masters_or_doctoral_degree' => 'max:999',
+            'gender' => 'max:999',
+            'date_of_birth' => 'max:999',
+            'age' => 'max:999',
+            'civil_status' => 'max:999',
+            'street_current' => 'max:999',
+            'purok_subdivision_current' => 'max:999',
+            'barangay_current' => 'max:999',
+            'city_municipality_current' => 'max:999',
+            'province_current' => 'max:999',
+            'permanent_address' => 'max:999',
+            'permanent_address_street' => 'max:999',
+            'permanent_address_purok' => 'max:999',
+            'permanent_address_subdivision_community_village' => 'max:999',
+            'permanent_address_barangay' => 'max:999',
+            'permanent_address_region' => 'max:999',
+            'permanent_address_city_municipality' => 'max:999',
+            'permanent_address_province' => 'max:999',
+            'bd' => 'max:999',
+            'indicate_whether_solo_parent' => 'max:999',
+            'indicate_whether_senior_citizen' => 'max:999',
+            'indicate_whether_pwd' => 'max:999',
+            'type_of_disability' => 'max:999',
+            'indicate_if_indigenous_group' => 'max:999',
+            'active_and_working_email_address' => 'max:999',
+            'former_incumbent' => 'max:999',
+            'mode_of_separation' => 'max:999',
+            'date_vacated' => 'max:999',
+            'remarks_status_of_vacant_position' => 'max:999',
+            'employee_id_no' => 'max:999',
+            'bir_tin_number' => 'max:999',
+            'philhealth_number' => 'max:999',
+            'sss_number' => 'max:999',
+            'pagibig_number' => 'max:999',
+            'gsis_number' => 'max:999',
+            'blood_type' => 'max:999',
+            'highest_level_of_eligibility_1st_and_2nd' => 'max:999',
+            'highest_level_eligibility_1st_and_2nd' => 'max:999',
+            'eligibility_csc_and_other_eligibilities_eligibilities' => 'max:999'
         ]);
-
 
 
         // Check if validation fails
@@ -165,8 +162,123 @@ class HrController extends Controller
         }
     }
 
+   //EDIT HR SPECICIC ROW
+   function hrUpdate(Request $request, int $ID) {
+    $validator = Validator::make($request->all(), [
+        'division' => 'max:999',
+        'section_unit' => 'max:999',
+        'office_location' => 'max:999',
+        'item_number' => 'max:999',
+        'date_position' => 'max:999',
+        'position_title' => 'max:999',
+        'parenthetical_title' => 'max:999',
+        'position_level' => 'max:999',
+        'sg' => 'max:999',
+        'salary_step_increment' => 'max:999',
+        'monthly_rate' => 'max:999',
+        'designation' => 'max:999',
+        'date_of_designation' => 'max:999',
+        'special_order_no' => 'max:999',
+        'office_bureau_service_program' => 'max:999',
+        'fund_source_for_contractual' => 'max:999',
+        'employment_status' => 'max:999',
+        'status_filled_unfilled' => 'max:999',
+        'mode_of_accession' => 'max:999',
+        'date_filled_up_assumption' => 'max:999',
+        'full_name' => 'max:999',
+        'last_name' => 'max:999',
+        'first_name' => 'max:999',
+        'middle_name' => 'max:999',
+        'ext' => 'max:999',
+        'date_of_original_appointment' => 'max:999',
+        'date_of_last_promotion' => 'max:999',
+        'entry_date_in_dswd' => 'max:999',
+        'eligibility_csc_and_other_eligibilities' => 'max:999',
+        'eligibility_license_ra_1080' => 'max:999',
+        'license' => 'max:999',
+        'highest_level_of_eligibility_1st_2nd' => 'max:999',
+        'highest_education_completed' => 'max:999',
+        'degree_and_course_1st_course_vocational' => 'max:999',
+        'degree_and_course_2nd_course' => 'max:999',
+        'other_course' => 'max:999',
+        'masters_or_doctoral_degree' => 'max:999',
+        'gender' => 'max:999',
+        'date_of_birth' => 'max:999',
+        'age' => 'max:999',
+        'civil_status' => 'max:999',
+        'street_current' => 'max:999',
+        'purok_subdivision_current' => 'max:999',
+        'barangay_current' => 'max:999',
+        'city_municipality_current' => 'max:999',
+        'province_current' => 'max:999',
+        'permanent_address' => 'max:999',
+        'permanent_address_street' => 'max:999',
+        'permanent_address_purok' => 'max:999',
+        'permanent_address_subdivision_community_village' => 'max:999',
+        'permanent_address_barangay' => 'max:999',
+        'permanent_address_region' => 'max:999',
+        'permanent_address_city_municipality' => 'max:999',
+        'permanent_address_province' => 'max:999',
+        'bd' => 'max:999',
+        'indicate_whether_solo_parent' => 'max:999',
+        'indicate_whether_senior_citizen' => 'max:999',
+        'indicate_whether_pwd' => 'max:999',
+        'type_of_disability' => 'max:999',
+        'indicate_if_indigenous_group' => 'max:999',
+        'active_and_working_email_address' => 'max:999',
+        'former_incumbent' => 'max:999',
+        'mode_of_separation' => 'max:999',
+        'date_vacated' => 'max:999',
+        'remarks_status_of_vacant_position' => 'max:999',
+        'employee_id_no' => 'max:999',
+        'bir_tin_number' => 'max:999',
+        'philhealth_number' => 'max:999',
+        'sss_number' => 'max:999',
+        'pagibig_number' => 'max:999',
+        'gsis_number' => 'max:999',
+        'blood_type' => 'max:999',
+        'highest_level_of_eligibility_1st_and_2nd' => 'max:999',
+        'highest_level_eligibility_1st_and_2nd' => 'max:999',
+        'eligibility_csc_and_other_eligibilities_eligibilities' => 'max:999'
+    ]);
+
+
+    if ($validator->fails()) {
+        return response()->json([
+            'status' => 422,
+            'errors' => $validator->errors()
+        ], 422);
+    }
+
+    $Hr = Hr::find($ID);
+
+    if (!$Hr) {
+        return response()->json([
+            'status' => 404,
+            'message' => "No Data Found!"
+        ], 404);
+    }
+
+    try {
+        // Update the record with the request data
+        $Hr->update($request->all());
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Hr record updated successfully',
+            'data' => $Hr // Return the updated record
+        ], 200);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 500,
+            'message' => 'Error updating Hr record: ' . $e->getMessage()
+        ], 500);
+    }
+}
+
+
    //DELETE HR SPECICIC ROW
-   function hrDestroy($ID) {
+   function hrArchive($ID) {
     $Hr = Hr::find($ID);
 
     if ($Hr) {
@@ -183,127 +295,68 @@ class HrController extends Controller
     }
 }
 
-
-
-
-
-
-
-
-    //EDIT HR SPECICIC ROW
-    function hrUpdate(Request $request, int $ID) {
-        $validator = Validator::make($request->all(), [
-            'NO' => 'max:999',
-            'DIVISION' => 'max:999',
-            'SECTION/UNIT' => 'max:999',
-            'OFFICE_LOCATION' => 'max:999',
-            'ITEM_NUMBER' => 'max:999',
-            'DATE_POSITION' => 'max:999',
-            'POSITION_TITLE' => 'max:999',
-            'PARENTHETICAL_TITLE' => 'max:999',
-            'POSITION_LEVEL' => 'max:999',
-            'SG' => 'max:999',
-            'SALARY_STEP_INCREMENT' => 'max:999',
-            'MONTHLY_RATE' => 'max:999',
-            'DESIGNATION' => 'max:999',
-            'DATE_OF_DESIGNATION' => 'max:999',
-            'SPECIAL_ORDER_NO.' => 'max:999',
-            'OFFICE_BUREAU_SERVICE_PROGRAM' => 'max:999',
-            'FUND_SOURCE_FOR_CONTRACTUAL' => 'max:999',
-            'EMPLOYMENT_STATUS' => 'max:999',
-            'STATUS_FILLED_UNFILLED' => 'max:999',
-            'MODE_OF_ACCESSION' => 'max:999',
-            'DATE_FILLED_UP_ASSUMPTION' => 'max:999',
-            'FULL_NAME' => 'max:999',
-            'LASTNAME' => 'max:999',
-            'FIRST_NAME' => 'max:999',
-            'MIDDLE_NAME' => 'max:999',
-            'EXT.' => 'max:999',
-            'DATE_OF_ORIGINAL_APPOINTMENT' => 'max:999',
-            'DATE_OF_LAST_PROMOTION' => 'max:999',
-            'ENTRY_DATE_IN_DSWD' => 'max:999',
-            'ELIGIBILITY_CSC_and_other_eligibilities' => 'max:999',
-            'ELIGIBILITY_License_RA_1080' => 'max:999',
-            'LICENSE' => 'max:999',
-            'HIGHEST_LVL_OF_ELIGIBILITY_1ST_AND_2ND' => 'max:999',
-            'HIGHEST_EDUCATION_COMPLETED' => 'max:999',
-            'DEGREE_AND_COURSE_1st_Course_Vocational' => 'max:999',
-            'DEGREE_AND_COURSE_2nd Course' => 'max:999',
-            'OTHER_COURSE' => 'max:999',
-            'MASTERS_OR_DOCTORAL_DEGREE' => 'max:999',
-            'GENDER' => 'max:999',
-            'DATE_OF_BIRTH' => 'max:999',
-            'AGE' => 'max:999',
-            'CIVIL_STATUS' => 'max:999',
-            'STREET_Current' => 'max:999',
-            'PUROK/SUBDIVISION_Current' => 'max:999',
-            'BARANGAY_Current' => 'max:999',
-            'CITY/MUNICIPALITY_Current' => 'max:999',
-            'PROVINCE_Current' => 'max:999',
-            'PERMANENT_ADDRESS' => 'max:999',
-            'PERMANENT_ADDRESS_Street' => 'max:999',
-            'PERMANENT_ADDRESS_Purok' => 'max:999',
-            'PERMANENT_ADDRESS_Subdivision_Community_Village' => 'max:999',
-            'PERMANENT_ADDRESS_Barangay' => 'max:999',
-            'PERMANENT_ADDRESS_Region' => 'max:999',
-            'PERMANENT_ADDRESS_City_Municipality' => 'max:999',
-            'PERMANENT_ADDRESS_Province' => 'max:999',
-            'BD' => 'max:999',
-            'INDICATE_WHETHER_SOLO_PARENT' => 'max:999',
-            'INDICATE_WHETHER_SENIOR_CITIZEN' => 'max:999',
-            'INDICATE_WHETHER_PWD' => 'max:999',
-            'TYPE_OF_DISABILITY' => 'max:999',
-            'INDICATE_IF_INDIGINOUS_GROUP' => 'max:999',
-            'ACTIVE_AND_WORKING_EMAIL_ADDRESS' => 'max:999',
-            'FORMER_INCUMBENT' => 'max:999',
-            'MODE_OF_SEPARATION' => 'max:999',
-            'DATE_VACATED' => 'max:999',
-            'REMARKS_STATUS_OF_VACANT_POSITION' => 'max:999',
-            'EMPLOYEE_ID_NO' => 'max:999',
-            'BIR_TIN.NO.' => 'max:999',
-            'PHILHEALTH_NUMBER' => 'max:999',
-            'SSS_NUMBER' => 'max:999',
-            'PAG-IBIG_NUMBER' => 'max:999',
-            'GSIS_NUMBER' => 'max:999',
-            'BLOOD_TYPE' => 'max:999',
-            'HIGHEST_LEVEL_OF_ELIGIBILITY_1ST_AND_2ND' => 'max:999',
-            'HIGHEST_LEVEL__ELIGIBILITY_1ST_AND_2ND' => 'max:999',
-            'ELIGIBILITY_CSC_and_other eligibilities' => 'max:999',
-        ]);
-
-
-        if ($validator->fails()) {
+    //GET ALL ARCHIVED DATA
+    function hrGetArchived() {
+        $onlySoftDeletedRecords = Hr::onlyTrashed()->get(); // Execute the query to retrieve records
+        if ($onlySoftDeletedRecords->count() > 0) {
             return response()->json([
-                'status' => 422,
-                'errors' => $validator->errors()
-            ], 422);
+                'status' => 200,
+                'ArchivedHr' => $onlySoftDeletedRecords
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'ArchivedHr' => 'No Record Found'
+            ], 404);
         }
+    }
 
-        $Hr = Hr::find($ID);
 
-        if (!$Hr) {
+    //FIND HR ARCHIVE RECORD THROUGH ITS ID
+    function hrArchiveFind($ID){
+        $hr = Hr::onlyTrashed()->find($ID);
+        if($hr){
+            return response()->json([
+                'status' => 200,
+                'message' => 'Hr archive record found!',
+                'data' => $hr
+            ], 200);
+        }
+        else {
             return response()->json([
                 'status' => 404,
                 'message' => "No Data Found!"
             ], 404);
         }
+    }
 
-        try {
-            // Update the record with the request data
-            $Hr->update($request->all());
 
+    //RESTORE SPECIFIC ARCHIVE DATA
+    function hrRestore($ID){
+        $hr = Hr::withTrashed()->find($ID);
+
+        if ($hr) {
+            $hr->restore(); // This line will restore the specific ID from archived to active data
             return response()->json([
                 'status' => 200,
-                'message' => 'HR record updated successfully',
-                'data' => $Hr // Return the updated record
+                'message' => 'Hr archived restored successfully'
             ], 200);
-        } catch (\Exception $e) {
+        } else {
             return response()->json([
-                'status' => 500,
-                'message' => 'Error updating HR record: ' . $e->getMessage()
-            ], 500);
+                'status' => 404,
+                'message' => "No Data Found! No Data to be Restored!"
+            ], 404);
         }
     }
+
+
+
+
+
+
+
+
+
 
 
     // THIS FUNCTIONS ARE USED FOR GETTING DATA FOR SELECTED TABLE COLOUMN SPECIFICALLY USED FOR VISUALIZATION ONLY

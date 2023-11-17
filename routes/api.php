@@ -82,9 +82,11 @@ Route::post("hrlist", [HrController::class,'hrStore']); //WORKING CREATE NEW HR 
 Route::get("hrlist/{ID}", [HrController::class,'hrShow']); //WORKING GET SPECIFIC HR ROW BY GETTING ITS ID
 Route::get("hrlist/{ID}/edit", [HrController::class,'hrEdit']); //WORKING GET SPECIFIC ROW BUT USE FOR TESTING FOR PUT METHOD
 Route::put("hrlist/{ID}/edit", [HrController::class,'hrUpdate']); //WORKING EDIT HR SPECICIC ROW
-Route::delete("hrlist/{ID}/delete", [HrController::class,'hrDestroy']); //WORKING DELETE HR SPECICIC ROW
+Route::delete("hrlist/{ID}/delete", [HrController::class,'hrArchive']); //WORKING DELETE HR SPECICIC ROW
 
-
+Route::get("hrArchived", [HrController::class,'hrGetArchived']); //WORKING GET ALL HR ARCHIVE DATA
+Route::get("hrArchived/{ID}", [HrController::class,'hrArchiveFind']); //WORKING GET SPECIFIC HR ARCHIVE DATA
+Route::post("hrArchived/{ID}/restore", [HrController::class,'hrRestore']); // WORKING RESTORE SPECIFIC ARCHIVE DATA
 
 //*SPECIFICALLY USED FOR GETTING DATA FOR CHARTJS COMPONENTS IN FRONTEND
 Route::get("employmentStatus", [HrController::class,'employmentStatus']);
