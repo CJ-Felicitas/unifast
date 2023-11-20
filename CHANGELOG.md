@@ -17,3 +17,5 @@
 ## version 1.8 Delete migration files and update API routes specifically in HR CONTROLLER (ARCHIVAL FUNCTIONALITY)
 
 ## version 1.9 Added CBSS Model, Controller and API, Made Changes regarding the maximum input from max:999 to max:254
+
+## version 1.10 Add routes for SWDA version retrieval, Added SWDAVERSIONS MODEL and Added Swda Edit version functions in SWDA CONTROLLLER

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Swda;
+use App\Models\SwdaVersion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class SwdaController extends Controller
@@ -126,57 +128,80 @@ class SwdaController extends Controller
         }
     }
 
-    //EDIT SWDA SPECICIC ROW
-    function swdaUpdate(Request $request, int $ID) {
-        $validator = Validator::make($request->all(), [
-            'Type' => 'max:254',
-            'Sector' => 'max:254',
-            'Cluster' => 'max:254',
-            'Agency' => 'max:254',
-            'Address' => 'max:254',
-            'Former_Name' => 'max:254',
-            'Contact_Number' => 'max:254',
-            'Fax' => 'max:254',
-            'Email' => 'max:254',
-            'Website' => 'max:254',
-            'Contact_Person' => 'max:254',
-            'Position' => 'max:254',
-            'Mobile_Number' => 'max:254',
-            'Registered' => 'max:254',
-            'Licensed' => 'max:254',
-            'Accredited' => 'max:254',
-            'Services_Offered' => 'max:254',
-            'Simplified_Services' => 'max:254',
-            'Area_of_Operation' => 'max:254',
-            'Regional_Operation' => 'max:254',
-            'Specified_Areas_of_Operation' => 'max:254',
-            'Mode_of_Delivery' => 'max:254',
-            'Clientele' => 'max:254',
-            'Registration_ID' => 'max:254',
-            'Registration_Date' => 'max:254',
-            'Registration_Expiration' => 'max:254',
-            'Registration_Status' => 'max:254',
-            'Licensed_ID' => 'max:254',
-            'License_Date_Issued' => 'max:254',
-            'License_Expiration' => 'max:254',
-            'License_Status' => 'max:254',
-            'Accreditation_ID' => 'max:254',
-            'Accreditation_Date_Issued' => 'max:254',
-            'Accreditation_Expiration' => 'max:254',
-            'Accreditation_Status' => 'max:254',
-            'Remarks' => 'max:254',
-            'License_Days_Left' => 'integer',
-            'Licensure_Overdue' => 'integer',
-            'Accreditation_Days_Left' => 'integer',
-            'Accreditation_Overdue' => 'integer',
-        ]);
+ // EDIT SWDA SPECIFIC ROW
+// function swdaUpdate(Request $request, int $ID) {
+//     $validator = Validator::make($request->all(), [
+//         // Validation rules...
+//     ]);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 422,
-                'errors' => $validator->errors()
-            ], 422);
-        }
+//     if ($validator->fails()) {
+//         return response()->json([
+//             'status' => 422,
+//             'errors' => $validator->errors()
+//         ], 422);
+//     }
+
+//     try {
+//         // Begin a transaction
+//         DB::beginTransaction();
+
+//         $Swda = Swda::find($ID);
+
+//         if (!$Swda) {
+//             return response()->json([
+//                 'status' => 404,
+//                 'message' => "No Data Found!"
+//             ], 404);
+//         }
+
+//         // Store the current version before updating
+//         $oldSwda = $Swda->toArray();
+
+//         // Update the record with the request data
+//         $Swda->update($request->all());
+
+//         // Store the previous and updated versions in the version control table
+//         SwdaVersion::create([
+//             'swda_id' => $ID,
+//             'previous_version' => json_encode($oldSwda),
+//             'updated_version' => json_encode($Swda->toArray())
+//             // Other necessary fields like timestamps, user ID, etc.
+//         ]);
+
+//         // Commit the transaction
+//         DB::commit();
+
+//         return response()->json([
+//             'status' => 200,
+//             'message' => 'Swda record updated successfully',
+//             'data' => $Swda // Return the updated record
+//         ], 200);
+//     } catch (\Exception $e) {
+//         // Rollback the transaction in case of an error
+//         DB::rollback();
+
+//         return response()->json([
+//             'status' => 500,
+//             'message' => 'Error updating Swda record: ' . $e->getMessage()
+//         ], 500);
+//     }
+// }
+
+function swdaUpdate(Request $request, int $ID) {
+    $validator = Validator::make($request->all(), [
+        // Validation rules...
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json([
+            'status' => 422,
+            'errors' => $validator->errors()
+        ], 422);
+    }
+
+    try {
+        // Begin a transaction
+        DB::beginTransaction();
 
         $Swda = Swda::find($ID);
 
@@ -187,22 +212,83 @@ class SwdaController extends Controller
             ], 404);
         }
 
-        try {
-            // Update the record with the request data
-            $Swda->update($request->all());
+        // Store the current version before updating
+        $oldSwda = $Swda->toArray();
 
-            return response()->json([
-                'status' => 200,
-                'message' => 'Swda record updated successfully',
-                'data' => $Swda // Return the updated record
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 500,
-                'message' => 'Error updating Swda record: ' . $e->getMessage()
-            ], 500);
-        }
+        // Update the record with the request data
+        $Swda->fill($request->all()); // Fill the model attributes
+        $Swda->save(); // Save the updated data
+
+        // Store the previous and updated versions in the version control table which is the swda_versions
+        SwdaVersion::create([
+            'swda_id' => $ID,
+            'Type' => $oldSwda['Type'],
+            'Sector' => $oldSwda['Sector'],
+            'Cluster' => $oldSwda['Cluster'],
+            'Agency' => $oldSwda['Agency'],
+            'Address' => $oldSwda['Address'],
+            'Former_Name' => $oldSwda['Former_Name'],
+            'Contact_Number' => $oldSwda['Contact_Number'],
+            'Fax' => $oldSwda['Fax'],
+            'Email' => $oldSwda['Email'],
+            'Website' => $oldSwda['Website'],
+            'Contact_Person' => $oldSwda['Contact_Person'],
+            'Position' => $oldSwda['Position'],
+            'Mobile_Number' => $oldSwda['Mobile_Number'],
+            'Registered' => $oldSwda['Registered'],
+            'Licensed' => $oldSwda['Licensed'],
+            'Accredited' => $oldSwda['Accredited'],
+            'Services_Offered' => $oldSwda['Services_Offered'],
+            'Simplified_Services' => $oldSwda['Simplified_Services'],
+            'Area_of_Operation' => $oldSwda['Area_of_Operation'],
+            'Regional_Operation' => $oldSwda['Regional_Operation'],
+            'Specified_Areas_of_Operation' => $oldSwda['Specified_Areas_of_Operation'],
+            'Mode_of_Delivery' => $oldSwda['Mode_of_Delivery'],
+            'Clientele' => $oldSwda['Clientele'],
+            'Registration_ID' => $oldSwda['Registration_ID'],
+            'Registration_Date' => $oldSwda['Registration_Date'],
+            'Registration_Expiration' => $oldSwda['Registration_Expiration'],
+            'Registration_Status' => $oldSwda['Registration_Status'],
+            'Licensed_ID' => $oldSwda['Licensed_ID'],
+            'License_Date_Issued' => $oldSwda['License_Date_Issued'],
+            'License_Expiration' => $oldSwda['License_Expiration'],
+            'License_Status' => $oldSwda['License_Status'],
+            'Accreditation_ID' => $oldSwda['Accreditation_ID'],
+            'Accreditation_Date_Issued' => $oldSwda['Accreditation_Date_Issued'],
+            'Accreditation_Expiration' => $oldSwda['Accreditation_Expiration'],
+            'Accreditation_Status' => $oldSwda['Accreditation_Status'],
+            'Remarks' => $oldSwda['Remarks'],
+            'License_Days_Left' => $oldSwda['License_Days_Left'],
+            'Licensure_Overdue' => $oldSwda['Licensure_Overdue'],
+            'Accreditation_Days_Left' => $oldSwda['Accreditation_Days_Left'],
+            'Accreditation_Overdue' => $oldSwda['Accreditation_Overdue'],
+
+
+            // Map other columns accordingly
+            'previous_version' => json_encode($oldSwda),
+            'updated_version' => json_encode($Swda->toArray())
+            // Other necessary fields like timestamps, user ID, etc.
+        ]);
+
+        // Commit the transaction
+        DB::commit();
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Swda record updated successfully',
+            'data' => $Swda // Return the updated record
+        ], 200);
+    } catch (\Exception $e) {
+        // Rollback the transaction in case of an error
+        DB::rollback();
+
+        return response()->json([
+            'status' => 500,
+            'message' => 'Error updating Swda record: ' . $e->getMessage()
+        ], 500);
     }
+}
+
 
     //ARHIVE SWDA SPECICIC ROW
     function swdaArchive($ID) {
@@ -281,7 +367,74 @@ class SwdaController extends Controller
 
 
 
-    // THIS FUNCTIONS ARE USED FOR GETTING DATA FOR SELECTED TABLE COLOUMN SPECIFICALLY USED FOR VISUALIZATION ONLY
+        // GET ALL OF THE TABLE COLUMNS IN SWDA VERSION TABLE
+        function swdaVersion(){
+            $Swda = SwdaVersion::all();
+            if($Swda->count() > 0){
+                return response()->json([
+                    'status' => 200,
+                    'Swda' =>  $Swda
+                ], 200);
+            }
+            else{
+                return response()->json([
+                    'status' => 404,
+                    'Swda' =>  'No Record Found'
+                ], 404);
+            }
+        }
+
+
+    //FIND SWDA VERSION RECORD THROUGH ITS ID
+    function swdaVersionShowID($ID){
+        $swda = SwdaVersion::find($ID);
+        if($swda){
+            return response()->json([
+                'status' => 200,
+                'message' => 'Swda Version History record found!',
+                'Swda' => $swda
+            ], 200);
+        }
+        else {
+            return response()->json([
+                'status' => 404,
+                'message' => "No Data Found!"
+            ], 404);
+        }
+    }
+
+
+ //FIND SWDA VERSION RECORD THROUGH ITS SWDA_ID
+    function swdaVersionShow($swda_id){
+        $swda = SwdaVersion::where('swda_id', $swda_id)->get();
+        if($swda->isNotEmpty()){
+            return response()->json([
+                'status' => 200,
+                'message' => 'Swda Version History record found!',
+                'SwdaEditHistory' => $swda
+            ], 200);
+        }
+        else {
+            return response()->json([
+                'status' => 404,
+                'message' => "No Data Found!"
+            ], 404);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+    //! THIS FUNCTIONS ARE USED FOR GETTING DATA FOR SELECTED TABLE COLOUMN SPECIFICALLY USED FOR VISUALIZATION ONLY
+    //! THIS FUNCTIONS ARE USED FOR GETTING DATA FOR SELECTED TABLE COLOUMN SPECIFICALLY USED FOR VISUALIZATION ONLY
+    //! THIS FUNCTIONS ARE USED FOR GETTING DATA FOR SELECTED TABLE COLOUMN SPECIFICALLY USED FOR VISUALIZATION ONLY
     function cluster(){
         return Swda::select('Cluster')->get();
     }
@@ -315,7 +468,9 @@ class SwdaController extends Controller
             ], 404);
         }
     }
-
+    //! THIS FUNCTIONS ARE USED FOR GETTING DATA FOR SELECTED TABLE COLOUMN SPECIFICALLY USED FOR VISUALIZATION ONLY
+    //! THIS FUNCTIONS ARE USED FOR GETTING DATA FOR SELECTED TABLE COLOUMN SPECIFICALLY USED FOR VISUALIZATION ONLY
+    //! THIS FUNCTIONS ARE USED FOR GETTING DATA FOR SELECTED TABLE COLOUMN SPECIFICALLY USED FOR VISUALIZATION ONLY
 
 
 
