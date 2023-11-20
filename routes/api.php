@@ -53,6 +53,11 @@ Route::get("swdaArchived", [SwdaController::class,'swdaGetArchived']); //WORKING
 Route::get("swdaArchived/{ID}", [SwdaController::class,'swdaArchiveFind']); //WORKING GET SPECIFIC SWDA ARCHIVE DATA
 Route::post("swdaArchived/{ID}/restore", [SwdaController::class,'swdaRestore']); // WORKING RESTORE SPECIFIC ARCHIVE DATA
 
+
+Route::get("swdaVersion", [SwdaController::class,'swdaVersion']); //WORKING GET ALL SWDA VERSION COLUMN AND ROW
+Route::get("swdaVersion/{ID}", [SwdaController::class,'swdaVersionShow']); //WORKING GET SPECIFIC SWDA ROW BY GETTING ITS ID
+Route::get("swdaVersion/{ID}/view", [SwdaController::class,'swdaVersionShowID']); //WORKING GET SPECIFIC SWDA ROW BY GETTING ITS ID
+
 //*SPECIFICALLY USED FOR GETTING DATA FOR CHARTJS COMPONENTS IN FRONTEND
 Route::get("cluster", [SwdaController::class,'cluster']);
 Route::get("modeDelivery", [SwdaController::class,'modeDelivery']);
