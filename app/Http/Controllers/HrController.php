@@ -162,7 +162,7 @@ class HrController extends Controller
         }
     }
 
-   //EDIT HR SPECICIC ROW
+   //UPDATE HR SPECICIC ROW
    function hrUpdate(Request $request, int $ID) {
     $validator = Validator::make($request->all(), [
         'division' => 'max:254',
@@ -274,10 +274,9 @@ class HrController extends Controller
             'message' => 'Error updating Hr record: ' . $e->getMessage()
         ], 500);
     }
-}
+    }
 
-
-   //DELETE HR SPECICIC ROW
+   //ARCHIVE HR SPECICIC ROW
    function hrArchive($ID) {
     $Hr = Hr::find($ID);
 
@@ -293,24 +292,7 @@ class HrController extends Controller
             'message' => "No Data Found!"
         ], 404);
     }
-}
-
-    //GET ALL ARCHIVED DATA
-    function hrGetArchived() {
-        $onlySoftDeletedRecords = Hr::onlyTrashed()->get(); // Execute the query to retrieve records
-        if ($onlySoftDeletedRecords->count() > 0) {
-            return response()->json([
-                'status' => 200,
-                'ArchivedHr' => $onlySoftDeletedRecords
-            ], 200);
-        } else {
-            return response()->json([
-                'status' => 404,
-                'ArchivedHr' => 'No Record Found'
-            ], 404);
-        }
     }
-
 
     //FIND HR ARCHIVE RECORD THROUGH ITS ID
     function hrArchiveFind($ID){
@@ -330,6 +312,21 @@ class HrController extends Controller
         }
     }
 
+    //GET ALL ARCHIVED DATA
+    function hrGetArchived() {
+        $onlySoftDeletedRecords = Hr::onlyTrashed()->get(); // Execute the query to retrieve records
+        if ($onlySoftDeletedRecords->count() > 0) {
+            return response()->json([
+                'status' => 200,
+                'ArchivedHr' => $onlySoftDeletedRecords
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'ArchivedHr' => 'No Record Found'
+            ], 404);
+        }
+    }
 
     //RESTORE SPECIFIC ARCHIVE DATA
     function hrRestore($ID){
@@ -349,6 +346,67 @@ class HrController extends Controller
         }
     }
 
+    // ! NOT YET IMPLEMENTED VERSION CONTROL HR
+    // ! NOT YET IMPLEMENTED VERSION CONTROL HR
+    // ! NOT YET IMPLEMENTED VERSION CONTROL HR
+    // // GET ALL OF THE TABLE COLUMNS IN SWDA VERSION TABLE
+    // function swdaVersion(){
+    //     $Swda = SwdaVersion::all();
+    //     if($Swda->count() > 0){
+    //         return response()->json([
+    //             'status' => 200,
+    //             'Swda' =>  $Swda
+    //         ], 200);
+    //     }
+    //     else{
+    //         return response()->json([
+    //             'status' => 404,
+    //             'Swda' =>  'No Record Found'
+    //         ], 404);
+    //     }
+    // }
+
+
+        // //FIND SWDA VERSION RECORD THROUGH ITS ID
+        // function swdaVersionShowID($ID){
+        //     $swda = SwdaVersion::find($ID);
+        //     if($swda){
+        //         return response()->json([
+        //             'status' => 200,
+        //             'message' => 'Swda Version History record found!',
+        //             'Swda' => $swda
+        //         ], 200);
+        //     }
+        //     else {
+        //         return response()->json([
+        //             'status' => 404,
+        //             'message' => "No Data Found!"
+        //         ], 404);
+        //     }
+        // }
+
+
+        // //FIND SWDA VERSION RECORD THROUGH ITS SWDA_ID
+        // function swdaVersionShow($swda_id){
+        //     $swda = SwdaVersion::where('swda_id', $swda_id)->get();
+        //     if($swda->isNotEmpty()){
+        //         return response()->json([
+        //             'status' => 200,
+        //             'message' => 'Swda Version History record found!',
+        //             'SwdaEditHistory' => $swda
+        //         ], 200);
+        //     }
+        //     else {
+        //         return response()->json([
+        //             'status' => 404,
+        //             'message' => "No Data Found!"
+        //         ], 404);
+        //     }
+        // }
+
+    // ! NOT YET IMPLEMENTED VERSION CONTROL HR
+    // ! NOT YET IMPLEMENTED VERSION CONTROL HR
+    // ! NOT YET IMPLEMENTED VERSION CONTROL HR
 
 
 
@@ -357,15 +415,13 @@ class HrController extends Controller
 
 
 
-
-
-    // THIS FUNCTIONS ARE USED FOR GETTING DATA FOR SELECTED TABLE COLOUMN SPECIFICALLY USED FOR VISUALIZATION ONLY
-    function employmentStatus(){
-        return Hr::select('EMPLOYMENT_STATUS')->get();
-    }
-    function employmentDetails(){
-        return Hr::select('FULL_NAME', 'SECTION/UNIT')->get();
-    }
+        // THIS FUNCTIONS ARE USED FOR GETTING DATA FOR SELECTED TABLE COLOUMN SPECIFICALLY USED FOR VISUALIZATION ONLY
+        function employmentStatus(){
+            return Hr::select('EMPLOYMENT_STATUS')->get();
+        }
+        function employmentDetails(){
+            return Hr::select('FULL_NAME', 'SECTION/UNIT')->get();
+        }
 
 
 }
