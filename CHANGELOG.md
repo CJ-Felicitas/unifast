@@ -19,3 +19,7 @@
 ## version 1.9 Added CBSS Model, Controller and API, Made Changes regarding the maximum input from max:999 to max:254
 
 ## version 1.10 Add routes for SWDA version retrieval, Added SWDAVERSIONS MODEL and Added Swda Edit version functions in SWDA CONTROLLLER
+
+## version 2.0 Fix the Update HR in HrController and Added HRVERSIONS MODEL
+
+## version 2.1 Implemented the OSD Controller (Edit History, Archived)

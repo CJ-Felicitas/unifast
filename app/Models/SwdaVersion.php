@@ -13,7 +13,7 @@ class SwdaVersion extends Model
     protected $table = "swda_versions";
     protected $dates = ['deleted_at'];
     protected $primaryKey = 'id';
-    public $timestamps = false;
+    public $timestamps = true;
     protected $fillable = [
         'swda_id',
         'Type',
