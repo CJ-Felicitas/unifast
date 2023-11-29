@@ -161,6 +161,27 @@ class SwdaController extends Controller
             $Swda->fill($request->all()); // Fill the model attributes
             $Swda->save(); // Save the updated data
 
+            // ! NEED FURTHER TESTING FOR THIS PART OF THE CODE
+            // // Compare the previous and updated versions
+            // $newSwda = $Swda->toArray();
+            // $changes = [];
+
+            // foreach ($oldSwda as $key => $value) {
+            //     if ($value !== $newSwda[$key]) {
+            //         $changes[$key] = ['old' => $value, 'new' => $newSwda[$key]];
+            //     }
+            // }
+
+            // // Now $changes contains the keys of all edited columns and their old and new values
+
+            // //  store $changes in the version control table
+            // SwdaVersion::create([
+            //     // ...
+            //     'changes' => json_encode($changes),
+            //     // ...
+            // ]);
+            // ! NEED FURTHER TESTING FOR THIS PART OF THE CODE
+
             // Store the previous and updated versions in the version control table which is the swda_versions
             SwdaVersion::create([
                 'swda_id' => $ID,
