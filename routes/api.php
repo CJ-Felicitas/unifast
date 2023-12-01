@@ -95,9 +95,7 @@ Route::get("hrArchived", [HrController::class,'hrGetArchived']); //WORKING GET A
 Route::get("hrArchived/{ID}", [HrController::class,'hrArchiveFind']); //WORKING GET SPECIFIC HR ARCHIVE DATA
 Route::post("hrArchived/{ID}/restore", [HrController::class,'hrRestore']); // WORKING RESTORE SPECIFIC ARCHIVE DATA
 
-//*SPECIFICALLY USED FOR GETTING DATA FOR CHARTJS COMPONENTS IN FRONTEND
-Route::get("employmentStatus", [HrController::class,'employmentStatus']);
-Route::get("employmentDetails", [HrController::class,'employmentDetails']);
+
 
 
 //? ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -119,7 +117,7 @@ Route::delete("cbsslist/{ID}/delete", [CbssController::class,'cbssArchive']); //
 
 Route::get("cbssArchived", [CbssController::class,'cbssGetArchived']); //WORKING GET ALL HR ARCHIVE DATA
 Route::get("cbssArchived/{ID}", [CbssController::class,'cbssArchiveFind']); //WORKING GET SPECIFIC HR ARCHIVE DATA
-Route::post("cbssrArchived/{ID}/restore", [CbssController::class,'cbssRestore']); // WORKING RESTORE SPECIFIC ARCHIVE DATA
+Route::post("cbssArchived/{ID}/restore", [CbssController::class,'cbssRestore']); // WORKING RESTORE SPECIFIC ARCHIVE DATA
 
 
 
@@ -143,6 +141,10 @@ Route::delete("osdlist/{ID}/delete", [OsdController::class,'osdArchive']); //WOR
 Route::get("osdArchived", [OsdController::class,'osdGetArchived']); //WORKING GET ALL OSD ARCHIVE DATA
 Route::get("osdArchived/{ID}", [OsdController::class,'osdArchiveFind']); //WORKING GET SPECIFIC OSD ARCHIVE DATA
 Route::post("osdArchived/{ID}/restore", [OsdController::class,'osdRestore']); // WORKING RESTORE SPECIFIC ARCHIVE DATA
+
+//*SPECIFICALLY USED FOR GETTING DATA FOR CHARTJS COMPONENTS IN FRONTEND
+Route::get("employmentStatus", [OsdController::class,'employmentStatus']);
+Route::get("employmentDetails", [OsdController::class,'employmentDetails']);
 //! ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //! OSD API ROUTE START
 //! ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
