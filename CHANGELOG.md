@@ -23,3 +23,5 @@
 ## version 2.0 Fix the Update HR in HrController and Added HRVERSIONS MODEL
 
 ## version 2.1 Implemented the OSD Controller (Edit History, Archived)
+
+## version 2.2 Updated the OSD Controller and HR Controller

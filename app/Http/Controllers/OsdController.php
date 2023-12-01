@@ -411,4 +411,15 @@ class OsdController extends Controller
         }
     }
 
+
+
+            // THIS FUNCTIONS ARE USED FOR GETTING DATA FOR SELECTED TABLE COLOUMN SPECIFICALLY USED FOR VISUALIZATION ONLY
+            function employmentStatus(){
+                return Osd::select('employment_status')->get();
+            }
+            function employmentDetails(){
+                return Osd::select('fullname', 'section_unit')->get();
+            }
+
+
 }
