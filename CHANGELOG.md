@@ -29,3 +29,5 @@
 ## version 2.3 Added Partial Codes in Cbss Controller
 
 ## version 2.4 Done with Cbss Controller Functions
+
+## version 2.5 Add API routes for SWDA version and chart components

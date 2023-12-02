@@ -120,6 +120,12 @@ Route::get("cbssArchived/{ID}", [CbssController::class,'cbssArchiveFind']); //WO
 Route::post("cbssArchived/{ID}/restore", [CbssController::class,'cbssRestore']); // WORKING RESTORE SPECIFIC ARCHIVE DATA
 
 
+Route::get("cbssVersion", [CbssController::class,'cbssVersion']); //WORKING GET ALL SWDA VERSION COLUMN AND ROW
+Route::get("cbssVersion/{ID}", [CbssController::class,'cbssVersionShow']); //WORKING GET SPECIFIC SWDA ROW BY GETTING ITS ID
+Route::get("cbssVersion/{ID}/view", [CbssController::class,'cbssVersionShowID']); //WORKING GET SPECIFIC SWDA ROW BY GETTING ITS ID
+
+
+
 Route::get("totalClientServed", [CbssController::class,'totalClientServed']); //TOTAL NUMBER OF CLIENT SERVED
 Route::get("financialAmountGiven", [CbssController::class,'financialAmountGiven']); //TOTAL FINANCIAL AMOUNT GIVEN
 Route::get("genderClientServed", [CbssController::class,'genderClientServed']); //GENDER OF CLIENTS SERVED
@@ -132,6 +138,7 @@ Route::get("financialAmountServed", [CbssController::class,'financialAmountServe
 Route::get("subCategoriesServed", [CbssController::class,'subCategoriesServed']); //SUB CATEGORIES SERVED
 Route::get("totalNumberOfClientServed", [CbssController::class,'totalNumberOfClientServed']); //TOTAL NUMBER OF CLIENT SERVED
 Route::get("totalNumberOfCategoriesServed", [CbssController::class,'totalNumberOfCategoriesServed']); //TOTAL NUMBER OF CASE CATEGORIES SERVED
+Route::get("subCategoriesServedChart", [CbssController::class,'subCategoriesServedChart']); // FOR CHARTJS COMPONENTS IN FRONTEND
 //* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //* CBSS API ROUTE END
 //* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
