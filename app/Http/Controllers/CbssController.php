@@ -391,5 +391,53 @@ class CbssController extends Controller
         }
     }
 
+    function subCategoriesServed(){
+        $Cbss = Cbss::select('ID', 'NON_MONETARY_SERVICES')->get();
+        if($Cbss->count() > 0){
+            return response()->json([
+                'status' => 200,
+                'SubCategoriesServed' =>  $Cbss
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'status' => 404,
+                'SubCategoriesServed' =>  'No Record Found'
+            ], 404);
+        }
+    }
+
+    function totalNumberOfClientServed(){
+        $Cbss = Cbss::select('ID', 'REPONSIBLE_PERSON')->get();
+        if($Cbss->count() > 0){
+            return response()->json([
+                'status' => 200,
+                'TotalNumberOfClientServed' =>  $Cbss
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'status' => 404,
+                'TotalNumberOfClientServed' =>  'No Record Found'
+            ], 404);
+        }
+    }
+
+    function totalNumberOfCategoriesServed(){
+        $Cbss = Cbss::select('ID', 'REPONSIBLE_PERSON', 'CASE_CATEGORY')->get();
+        if($Cbss->count() > 0){
+            return response()->json([
+                'status' => 200,
+                'TotalNumberOfCategoriesServed' =>  $Cbss
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'status' => 404,
+                'TotalNumberOfCategoriesServed' =>  'No Record Found'
+            ], 404);
+        }
+    }
+
 
 }

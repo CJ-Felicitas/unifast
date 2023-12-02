@@ -129,9 +129,9 @@ Route::get("numberNonMonetaryServices", [CbssController::class,'numberNonMonetar
 Route::get("clientsServedPerQuarter", [CbssController::class,'clientsServedPerQuarter']); //CLIENTS SERVED PER QUARTER
 Route::get("clientServedPerAgeAndSex", [CbssController::class,'clientServedPerAgeAndSex']);  //CLIENTS SERVED PER AGE AND SEX
 Route::get("financialAmountServed", [CbssController::class,'financialAmountServed']); //FINANCIAL AMOUNT SERVED
-
-
-
+Route::get("subCategoriesServed", [CbssController::class,'subCategoriesServed']); //SUB CATEGORIES SERVED
+Route::get("totalNumberOfClientServed", [CbssController::class,'totalNumberOfClientServed']); //TOTAL NUMBER OF CLIENT SERVED
+Route::get("totalNumberOfCategoriesServed", [CbssController::class,'totalNumberOfCategoriesServed']); //TOTAL NUMBER OF CASE CATEGORIES SERVED
 //* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //* CBSS API ROUTE END
 //* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

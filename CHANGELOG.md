@@ -27,3 +27,5 @@
 ## version 2.2 Updated the OSD Controller and HR Controller
 
 ## version 2.3 Added Partial Codes in Cbss Controller
+
+## version 2.4 Done with Cbss Controller Functions
