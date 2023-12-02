@@ -200,4 +200,196 @@ class CbssController extends Controller
 
 
 
+
+
+    function totalClientServed(){
+        $Cbss = Cbss::select('ID', 'NAME')->get();
+        if($Cbss->count() > 0){
+            return response()->json([
+                'status' => 200,
+                'Cbss' =>  $Cbss
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'status' => 404,
+                'Cbss' =>  'No Record Found'
+            ], 404);
+        }
+    }
+
+    function financialAmountGiven(){
+        $totalAmount = Cbss::sum('AMOUNT');
+
+        if($totalAmount > 0){
+            return response()->json([
+                'status' => 200,
+                'totalAmount' =>  $totalAmount
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'status' => 404,
+                'message' =>  'No Record Found'
+            ], 404);
+        }
+    }
+
+
+    function genderClientServed(){
+        $Cbss = Cbss::select('ID', 'SEX')->get();
+        if($Cbss->count() > 0){
+            return response()->json([
+                'status' => 200,
+                'Sex' =>  $Cbss
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'status' => 404,
+                'Sex' =>  'No Record Found'
+            ], 404);
+        }
+    }
+
+
+    function modeOfAdmission(){
+        $Cbss = Cbss::select('ID', 'MODE_OF_ADMISSION')->get();
+        if($Cbss->count() > 0){
+            return response()->json([
+                'status' => 200,
+                'ModeOfAdmission' =>  $Cbss
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'status' => 404,
+                'ModeOfAdmission' =>  'No Record Found'
+            ], 404);
+        }
+    }
+
+
+    function numberCaseCategories(){
+        $Cbss = Cbss::select('ID', 'CASE_CATEGORY')->get();
+        if($Cbss->count() > 0){
+            return response()->json([
+                'status' => 200,
+                'NumberCaseCategories' =>  $Cbss
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'status' => 404,
+                'NumberCaseCategories' =>  'No Record Found'
+            ], 404);
+        }
+    }
+
+    function numberNonMonetaryServices(){
+        $Cbss = Cbss::select('ID', 'NON_MONETARY_SERVICES')->get();
+        if($Cbss->count() > 0){
+            return response()->json([
+                'status' => 200,
+                'NumberNonMonetaryServices' =>  $Cbss
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'status' => 404,
+                'NumberNonMonetaryServices' =>  'No Record Found'
+            ], 404);
+        }
+    }
+
+
+
+    function clientsServedPerQuarter(){
+        $Cbss = Cbss::select('ID', 'DATE')->get();
+
+        if($Cbss->count() > 0){
+            $quarters = ['Quarter1' => 0, 'Quarter2' => 0, 'Quarter3' => 0, 'Quarter4' => 0];
+
+            foreach ($Cbss as $client) {
+                $month = date('n', strtotime($client->DATE));
+                $quarter = 'Quarter' . ceil($month / 3);
+                $quarters[$quarter]++;
+            }
+
+            return response()->json([
+                'status' => 200,
+                'clientsServedPerQuarter' =>  $quarters
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'status' => 404,
+                'clientsServedPerQuarter' =>  'No Record Found'
+            ], 404);
+        }
+    }
+
+
+    function clientServedPerAgeAndSex(){
+        $Cbss = Cbss::select('ID', 'SEX', 'AGE')->get();
+
+        if($Cbss->count() > 0){
+            $ageGroups = [
+                'AGE:0-4' => range(0, 4),
+                'AGE:5-17' => range(5, 17),
+                'AGE:18-28' => range(18, 28),
+                'AGE:29-39' => range(29, 39),
+                'AGE:40-50' => range(40, 50),
+                'AGE:51-61' => range(51, 61),
+                'AGE:61 and Above' => range(62, 150)
+            ];
+
+            $result = ['MALE' => [], 'FEMALE' => [], 'NULL' => []];
+
+            foreach ($ageGroups as $ageGroup => $ages) {
+                $result['MALE'][$ageGroup] = 0;
+                $result['FEMALE'][$ageGroup] = 0;
+                $result['NULL'][$ageGroup] = 0;
+            }
+
+            foreach ($Cbss as $client) {
+                $sex = $client->SEX ? $client->SEX : 'NULL';
+                foreach ($ageGroups as $ageGroup => $ages) {
+                    if (in_array($client->AGE, $ages)) {
+                        $result[$sex][$ageGroup]++;
+                    }
+                }
+            }
+
+            return response()->json([
+                'status' => 200,
+                'clientServedPerAgeAndSex' =>  $result
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'status' => 404,
+                'clientServedPerAgeAndSex' =>  'No Record Found'
+            ], 404);
+        }
+    }
+
+
+    function financialAmountServed(){
+        $Cbss = Cbss::select('ID', 'CASE_CATEGORY', 'AMOUNT')->get();
+        if($Cbss->count() > 0){
+            return response()->json([
+                'status' => 200,
+                'FinancialAmountServed' =>  $Cbss
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'status' => 404,
+                'FinancialAmountServed' =>  'No Record Found'
+            ], 404);
+        }
+    }
+
+
 }

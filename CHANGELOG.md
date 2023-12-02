@@ -25,3 +25,5 @@
 ## version 2.1 Implemented the OSD Controller (Edit History, Archived)
 
 ## version 2.2 Updated the OSD Controller and HR Controller
+
+## version 2.3 Added Partial Codes in Cbss Controller

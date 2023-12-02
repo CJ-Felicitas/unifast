@@ -120,6 +120,16 @@ Route::get("cbssArchived/{ID}", [CbssController::class,'cbssArchiveFind']); //WO
 Route::post("cbssArchived/{ID}/restore", [CbssController::class,'cbssRestore']); // WORKING RESTORE SPECIFIC ARCHIVE DATA
 
 
+Route::get("totalClientServed", [CbssController::class,'totalClientServed']); //TOTAL NUMBER OF CLIENT SERVED
+Route::get("financialAmountGiven", [CbssController::class,'financialAmountGiven']); //TOTAL FINANCIAL AMOUNT GIVEN
+Route::get("genderClientServed", [CbssController::class,'genderClientServed']); //GENDER OF CLIENTS SERVED
+Route::get("modeOfAdmission", [CbssController::class,'modeOfAdmission']); //MODE OF ADMISSIONS
+Route::get("numberCaseCategories", [CbssController::class,'numberCaseCategories']); //NUMBER OF CASE CATEGORIES
+Route::get("numberNonMonetaryServices", [CbssController::class,'numberNonMonetaryServices']); //NUMBER OF NON MONETORY SERVICES
+Route::get("clientsServedPerQuarter", [CbssController::class,'clientsServedPerQuarter']); //CLIENTS SERVED PER QUARTER
+Route::get("clientServedPerAgeAndSex", [CbssController::class,'clientServedPerAgeAndSex']);  //CLIENTS SERVED PER AGE AND SEX
+Route::get("financialAmountServed", [CbssController::class,'financialAmountServed']); //FINANCIAL AMOUNT SERVED
+
 
 
 //* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -148,3 +158,6 @@ Route::get("employmentDetails", [OsdController::class,'employmentDetails']);
 //! ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //! OSD API ROUTE START
 //! ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
