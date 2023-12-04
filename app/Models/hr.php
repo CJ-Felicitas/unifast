@@ -23,7 +23,8 @@ class hr extends Model
         'brief_interview',
         'remarks',
         'assistance_provided',
-
+        'quantity_unit',
+        'date_received',
     ];
 
 

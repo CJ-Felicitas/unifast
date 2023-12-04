@@ -393,23 +393,82 @@ class OsdController extends Controller
         }
     }
 
-    //RESTORE SPECIFIC ARCHIVE DATA
-    function osdRestore($ID){
-        $Osd = Osd::withTrashed()->find($ID);
+        //RESTORE SPECIFIC ARCHIVE DATA
+        function osdRestore($ID){
+            $Osd = Osd::withTrashed()->find($ID);
 
-        if ($Osd) {
-            $Osd->restore(); // This line will restore the specific ID from archived to active data
-            return response()->json([
-                'status' => 200,
-                'message' => 'Osd archived restored successfully'
-            ], 200);
-        } else {
-            return response()->json([
-                'status' => 404,
-                'message' => "No Data Found! No Data to be Restored!"
-            ], 404);
+            if ($Osd) {
+                $Osd->restore(); // This line will restore the specific ID from archived to active data
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Osd archived restored successfully'
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => 404,
+                    'message' => "No Data Found! No Data to be Restored!"
+                ], 404);
+            }
         }
-    }
+
+
+
+
+        function osdVersion(){
+            $Osd = OsdVersion::all();
+            if($Osd->count() > 0){
+                return response()->json([
+                    'status' => 200,
+                    'Osd' =>  $Osd
+                ], 200);
+            }
+            else{
+                return response()->json([
+                    'status' => 404,
+                    'Osd' =>  'No Record Found'
+                ], 404);
+            }
+        }
+
+
+        function osdVersionShowID($ID){
+            $Osd = OsdVersion::find($ID);
+            if($Osd){
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Osd Version History record found!',
+                    'Osd' => $Osd
+                ], 200);
+            }
+            else {
+                return response()->json([
+                    'status' => 404,
+                    'message' => "No Data Found!"
+                ], 404);
+            }
+        }
+
+
+
+        function osdVersionShow($cbss_id){
+            $Osd = OsdVersion::where('osd_id', $cbss_id)->get();
+            if($Osd->isNotEmpty()){
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Osd Version History record found!',
+                    'OsdEditHistory' => $Osd
+                ], 200);
+            }
+            else {
+                return response()->json([
+                    'status' => 404,
+                    'message' => "No Data Found!"
+                ], 404);
+            }
+        }
+
+
+
 
 
 

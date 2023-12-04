@@ -96,7 +96,9 @@ Route::get("hrArchived/{ID}", [HrController::class,'hrArchiveFind']); //WORKING 
 Route::post("hrArchived/{ID}/restore", [HrController::class,'hrRestore']); // WORKING RESTORE SPECIFIC ARCHIVE DATA
 
 
-
+Route::get("hrVersion", [HrController::class,'hrVersion']); //WORKING GET ALL SWDA VERSION COLUMN AND ROW
+Route::get("hrVersion/{ID}", [HrController::class,'hrVersionShow']); //WORKING GET SPECIFIC SWDA ROW BY GETTING ITS ID
+Route::get("hrVersion/{ID}/view", [HrController::class,'hrVersionShowID']); //WORKING GET SPECIFIC SWDA ROW BY GETTING ITS ID
 
 //? ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //? HR API ROUTE END
@@ -154,10 +156,13 @@ Route::get("osdlist/{ID}/edit", [OsdController::class,'osdEdit']); //WORKING GET
 Route::put("osdlist/{ID}/edit", [OsdController::class,'osdUpdate']); //WORKING EDIT OSD SPECICIC ROW
 Route::delete("osdlist/{ID}/delete", [OsdController::class,'osdArchive']); //WORKING SOFT DELETE/ARHIVE OSD SPECICIC ROW
 
-
 Route::get("osdArchived", [OsdController::class,'osdGetArchived']); //WORKING GET ALL OSD ARCHIVE DATA
 Route::get("osdArchived/{ID}", [OsdController::class,'osdArchiveFind']); //WORKING GET SPECIFIC OSD ARCHIVE DATA
 Route::post("osdArchived/{ID}/restore", [OsdController::class,'osdRestore']); // WORKING RESTORE SPECIFIC ARCHIVE DATA
+
+Route::get("osdVersion", [OsdController::class,'osdVersion']); //WORKING GET ALL SWDA VERSION COLUMN AND ROW
+Route::get("osdVersion/{ID}", [OsdController::class,'osdVersionShow']); //WORKING GET SPECIFIC SWDA ROW BY GETTING ITS ID
+Route::get("osdVersion/{ID}/view", [OsdController::class,'osdVersionShowID']); //WORKING GET SPECIFIC SWDA ROW BY GETTING ITS ID
 
 //*SPECIFICALLY USED FOR GETTING DATA FOR CHARTJS COMPONENTS IN FRONTEND
 Route::get("employmentStatus", [OsdController::class,'employmentStatus']);
