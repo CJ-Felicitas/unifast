@@ -25,3 +25,11 @@
 ## version 2.1 Implemented the OSD Controller (Edit History, Archived)
 
 ## version 2.2 Updated the OSD Controller and HR Controller
+
+## version 2.3 Added Partial Codes in Cbss Controller
+
+## version 2.4 Done with Cbss Controller Functions
+
+## version 2.5 Add API routes for SWDA version and chart components
+
+## version 2.6 Add new fields to hr model and routes, Fix OSP and HR VERSION HISTORY MODEL AND FUNCTION, Added new API routes from HR and OSP CONTROLLER

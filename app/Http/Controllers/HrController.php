@@ -87,7 +87,7 @@ class HrController extends Controller
             return response()->json([
                 'status' => 200,
                 'message' => 'Hr record found!',
-                'Hr' => $Hr 
+                'Hr' => $Hr
             ], 200);
         }
         else {
@@ -110,6 +110,8 @@ class HrController extends Controller
             'brief_interview' => 'max:254',
             'remarks' => 'max:254',
             'assistance_provided' => 'max:254',
+            'quantity_unit' => 'max:254',
+            'date_received' => 'max:254',
 
         ]);
 
@@ -152,7 +154,8 @@ class HrController extends Controller
                 'brief_interview' => $oldHr['brief_interview'],
                 'remarks' => $oldHr['remarks'],
                 'assistance_provided' => $oldHr['assistance_provided'],
-
+                'quantity_unit' => $oldHr['quantity_unit'],
+                'date_received' => $oldHr['date_received'],
 
                 // Map other columns accordingly
                 'previous_version' => json_encode($oldHr),
@@ -253,59 +256,59 @@ class HrController extends Controller
     // ! NOT YET IMPLEMENTED VERSION CONTROL HR
     // ! NOT YET IMPLEMENTED VERSION CONTROL HR
     // // GET ALL OF THE TABLE COLUMNS IN SWDA VERSION TABLE
-    // function hrVersion(){
-    //     $Hr = HrVersion::all();
-    //     if($Hr->count() > 0){
-    //         return response()->json([
-    //             'status' => 200,
-    //             'Hr' =>  $Hr
-    //         ], 200);
-    //     }
-    //     else{
-    //         return response()->json([
-    //             'status' => 404,
-    //             'Hr' =>  'No Record Found'
-    //         ], 404);
-    //     }
-    // }
+    function hrVersion(){
+        $Hr = HrVersion::all();
+        if($Hr->count() > 0){
+            return response()->json([
+                'status' => 200,
+                'Hr' =>  $Hr
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'status' => 404,
+                'Hr' =>  'No Record Found'
+            ], 404);
+        }
+    }
 
 
-        // //FIND SWDA VERSION RECORD THROUGH ITS ID
-        // function hrVersionShowID($ID){
-        //     $hr = HrVersion::find($ID);
-        //     if($hr){
-        //         return response()->json([
-        //             'status' => 200,
-        //             'message' => 'Hr Version History record found!',
-        //             'Hr' => $hr
-        //         ], 200);
-        //     }
-        //     else {
-        //         return response()->json([
-        //             'status' => 404,
-        //             'message' => "No Data Found!"
-        //         ], 404);
-        //     }
-        // }
+        //FIND SWDA VERSION RECORD THROUGH ITS ID
+        function hrVersionShowID($ID){
+            $hr = HrVersion::find($ID);
+            if($hr){
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Hr Version History record found!',
+                    'Hr' => $hr
+                ], 200);
+            }
+            else {
+                return response()->json([
+                    'status' => 404,
+                    'message' => "No Data Found!"
+                ], 404);
+            }
+        }
 
 
-        // //FIND SWDA VERSION RECORD THROUGH ITS SWDA_ID
-        // function hrVersionShow($hr_id){
-        //     $hr = HrVersion::where('hr_id', $hr_id)->get();
-        //     if($hr->isNotEmpty()){
-        //         return response()->json([
-        //             'status' => 200,
-        //             'message' => 'Hr Version History record found!',
-        //             'HrEditHistory' => $hr
-        //         ], 200);
-        //     }
-        //     else {
-        //         return response()->json([
-        //             'status' => 404,
-        //             'message' => "No Data Found!"
-        //         ], 404);
-        //     }
-        // }
+        //FIND SWDA VERSION RECORD THROUGH ITS SWDA_ID
+        function hrVersionShow($hr_id){
+            $hr = HrVersion::where('hr_id', $hr_id)->get();
+            if($hr->isNotEmpty()){
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Hr Version History record found!',
+                    'HrEditHistory' => $hr
+                ], 200);
+            }
+            else {
+                return response()->json([
+                    'status' => 404,
+                    'message' => "No Data Found!"
+                ], 404);
+            }
+        }
 
     // ! NOT YET IMPLEMENTED VERSION CONTROL HR
     // ! NOT YET IMPLEMENTED VERSION CONTROL HR

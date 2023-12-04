@@ -96,7 +96,9 @@ Route::get("hrArchived/{ID}", [HrController::class,'hrArchiveFind']); //WORKING 
 Route::post("hrArchived/{ID}/restore", [HrController::class,'hrRestore']); // WORKING RESTORE SPECIFIC ARCHIVE DATA
 
 
-
+Route::get("hrVersion", [HrController::class,'hrVersion']); //WORKING GET ALL SWDA VERSION COLUMN AND ROW
+Route::get("hrVersion/{ID}", [HrController::class,'hrVersionShow']); //WORKING GET SPECIFIC SWDA ROW BY GETTING ITS ID
+Route::get("hrVersion/{ID}/view", [HrController::class,'hrVersionShowID']); //WORKING GET SPECIFIC SWDA ROW BY GETTING ITS ID
 
 //? ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //? HR API ROUTE END
@@ -120,8 +122,25 @@ Route::get("cbssArchived/{ID}", [CbssController::class,'cbssArchiveFind']); //WO
 Route::post("cbssArchived/{ID}/restore", [CbssController::class,'cbssRestore']); // WORKING RESTORE SPECIFIC ARCHIVE DATA
 
 
+Route::get("cbssVersion", [CbssController::class,'cbssVersion']); //WORKING GET ALL SWDA VERSION COLUMN AND ROW
+Route::get("cbssVersion/{ID}", [CbssController::class,'cbssVersionShow']); //WORKING GET SPECIFIC SWDA ROW BY GETTING ITS ID
+Route::get("cbssVersion/{ID}/view", [CbssController::class,'cbssVersionShowID']); //WORKING GET SPECIFIC SWDA ROW BY GETTING ITS ID
 
 
+
+Route::get("totalClientServed", [CbssController::class,'totalClientServed']); //TOTAL NUMBER OF CLIENT SERVED
+Route::get("financialAmountGiven", [CbssController::class,'financialAmountGiven']); //TOTAL FINANCIAL AMOUNT GIVEN
+Route::get("genderClientServed", [CbssController::class,'genderClientServed']); //GENDER OF CLIENTS SERVED
+Route::get("modeOfAdmission", [CbssController::class,'modeOfAdmission']); //MODE OF ADMISSIONS
+Route::get("numberCaseCategories", [CbssController::class,'numberCaseCategories']); //NUMBER OF CASE CATEGORIES
+Route::get("numberNonMonetaryServices", [CbssController::class,'numberNonMonetaryServices']); //NUMBER OF NON MONETORY SERVICES
+Route::get("clientsServedPerQuarter", [CbssController::class,'clientsServedPerQuarter']); //CLIENTS SERVED PER QUARTER
+Route::get("clientServedPerAgeAndSex", [CbssController::class,'clientServedPerAgeAndSex']);  //CLIENTS SERVED PER AGE AND SEX
+Route::get("financialAmountServed", [CbssController::class,'financialAmountServed']); //FINANCIAL AMOUNT SERVED
+Route::get("subCategoriesServed", [CbssController::class,'subCategoriesServed']); //SUB CATEGORIES SERVED
+Route::get("totalNumberOfClientServed", [CbssController::class,'totalNumberOfClientServed']); //TOTAL NUMBER OF CLIENT SERVED
+Route::get("totalNumberOfCategoriesServed", [CbssController::class,'totalNumberOfCategoriesServed']); //TOTAL NUMBER OF CASE CATEGORIES SERVED
+Route::get("subCategoriesServedChart", [CbssController::class,'subCategoriesServedChart']); // FOR CHARTJS COMPONENTS IN FRONTEND
 //* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //* CBSS API ROUTE END
 //* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -137,10 +156,13 @@ Route::get("osdlist/{ID}/edit", [OsdController::class,'osdEdit']); //WORKING GET
 Route::put("osdlist/{ID}/edit", [OsdController::class,'osdUpdate']); //WORKING EDIT OSD SPECICIC ROW
 Route::delete("osdlist/{ID}/delete", [OsdController::class,'osdArchive']); //WORKING SOFT DELETE/ARHIVE OSD SPECICIC ROW
 
-
 Route::get("osdArchived", [OsdController::class,'osdGetArchived']); //WORKING GET ALL OSD ARCHIVE DATA
 Route::get("osdArchived/{ID}", [OsdController::class,'osdArchiveFind']); //WORKING GET SPECIFIC OSD ARCHIVE DATA
 Route::post("osdArchived/{ID}/restore", [OsdController::class,'osdRestore']); // WORKING RESTORE SPECIFIC ARCHIVE DATA
+
+Route::get("osdVersion", [OsdController::class,'osdVersion']); //WORKING GET ALL SWDA VERSION COLUMN AND ROW
+Route::get("osdVersion/{ID}", [OsdController::class,'osdVersionShow']); //WORKING GET SPECIFIC SWDA ROW BY GETTING ITS ID
+Route::get("osdVersion/{ID}/view", [OsdController::class,'osdVersionShowID']); //WORKING GET SPECIFIC SWDA ROW BY GETTING ITS ID
 
 //*SPECIFICALLY USED FOR GETTING DATA FOR CHARTJS COMPONENTS IN FRONTEND
 Route::get("employmentStatus", [OsdController::class,'employmentStatus']);
@@ -148,3 +170,6 @@ Route::get("employmentDetails", [OsdController::class,'employmentDetails']);
 //! ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //! OSD API ROUTE START
 //! ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
