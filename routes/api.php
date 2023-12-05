@@ -100,6 +100,27 @@ Route::get("hrVersion", [HrController::class,'hrVersion']); //WORKING GET ALL SW
 Route::get("hrVersion/{ID}", [HrController::class,'hrVersionShow']); //WORKING GET SPECIFIC SWDA ROW BY GETTING ITS ID
 Route::get("hrVersion/{ID}/view", [HrController::class,'hrVersionShowID']); //WORKING GET SPECIFIC SWDA ROW BY GETTING ITS ID
 
+
+Route::get("numberOfRecordsPerMonth", [HrController::class,'numberOfRecordsPerMonth']); //NUMBER OF RECORDS PER MONTH
+Route::get("numberOfRecordsPerMonth/{year}", [HrController::class,'numberOfRecordsPerMonthYear']);
+Route::get("numberOfRecordsPerMonth/{month}/{year}", [HrController::class,'numberOfRecordsPerMonthYearfilter']);
+
+
+
+
+
+Route::get("totalNumberOfCategoryRequest", [HrController::class,'totalNumberOfCategoryRequest']); //TOTAL NUMBER OF CATEGORIES REQUEST
+Route::get("totalNumberOfCategoryRequest/{year}", [HrController::class,'numberOfCategoryRequestsPerYear']);
+Route::get("totalNumberOfCategoryRequest/{month}/{year}", [HrController::class,'numberOfCategoryRequestsPerMonthYear']);
+
+Route::get("percentageOfRequestingEmployee", [HrController::class,'percentageOfRequestingEmployee']); //PERCENTAGE OF REQUESTING EMPLOYEE
+Route::get("percentageOfRequestingEmployee/{year}", [HrController::class,'percentageOfRequestingEmployeeYear']);
+Route::get("percentageOfRequestingEmployee/{month}/{year}", [HrController::class,'percentageOfRequestingEmployeeMonthYear']);
+
+
+Route::get("detailsOfRequestingEmployee", [HrController::class,'detailsOfRequestingEmployee']);
+Route::get("detailsOfRequestingEmployee/{year}", [HrController::class,'detailsOfRequestingEmployeeYear']);
+Route::get("detailsOfRequestingEmployee/{month}/{year}", [HrController::class,'detailsOfRequestingEmployeeMonthYear']);
 //? ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //? HR API ROUTE END
 //? ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
