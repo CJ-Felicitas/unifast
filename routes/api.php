@@ -116,6 +116,11 @@ Route::get("totalNumberOfCategoryRequest/{month}/{year}", [HrController::class,'
 Route::get("percentageOfRequestingEmployee", [HrController::class,'percentageOfRequestingEmployee']); //PERCENTAGE OF REQUESTING EMPLOYEE
 Route::get("percentageOfRequestingEmployee/{year}", [HrController::class,'percentageOfRequestingEmployeeYear']);
 Route::get("percentageOfRequestingEmployee/{month}/{year}", [HrController::class,'percentageOfRequestingEmployeeMonthYear']);
+
+
+Route::get("detailsOfRequestingEmployee", [HrController::class,'detailsOfRequestingEmployee']);
+Route::get("detailsOfRequestingEmployee/{year}", [HrController::class,'detailsOfRequestingEmployeeYear']);
+Route::get("detailsOfRequestingEmployee/{month}/{year}", [HrController::class,'detailsOfRequestingEmployeeMonthYear']);
 //? ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //? HR API ROUTE END
 //? ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

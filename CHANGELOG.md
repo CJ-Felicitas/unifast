@@ -35,3 +35,5 @@
 ## version 2.6 Add new fields to hr model and routes, Fix OSP and HR VERSION HISTORY MODEL AND FUNCTION, Added new API routes from HR and OSP CONTROLLER
 
 ## version 2.7 Added new HR CONTROLLER FUNCTIONS and API ROUTES
+
+## version 2.8 Done with the HR USER PAGE CONTROLLER FUNCTIONS

@@ -599,4 +599,107 @@ class HrController extends Controller
         // *NUMBER OF REQUESTING EMPLOYEE END
 
 
+
+
+
+
+
+
+
+    function detailsOfRequestingEmployee() {
+        $Hr = Hr::select('id', 'requesting_employee_name', 'office_unit', 'request_date')
+            ->get()
+            ->groupBy('requesting_employee_name');
+
+        $hrDetails = [];
+        foreach ($Hr as $key => $value) {
+            $hrDetails[] = [
+                'id' => $value[0]->id,
+                'name' => $key,
+                'office_unit' => $value[0]->office_unit,
+                'record_count' => count($value)
+            ];
+        }
+
+        if(count($hrDetails) > 0){
+            return response()->json([
+                'status' => 200,
+                'DetailsOfRequestingEmployee' =>  $hrDetails
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'status' => 404,
+                'DetailsOfRequestingEmployee' =>  'No Record Found'
+            ], 404);
+        }
+    }
+
+
+    function detailsOfRequestingEmployeeYear($year) {
+        $Hr = Hr::select('id', 'requesting_employee_name', 'office_unit', 'request_date')
+            ->get()
+            ->filter(function($record) use ($year) {
+                $date = Carbon::createFromFormat('F j, Y', $record->request_date);
+                return $date->year == $year;
+            })
+            ->groupBy('requesting_employee_name');
+
+        $hrDetails = [];
+        foreach ($Hr as $key => $value) {
+            $hrDetails[] = [
+                'id' => $value[0]->id,
+                'name' => $key,
+                'office_unit' => $value[0]->office_unit,
+                'record_count' => count($value)
+            ];
+        }
+
+        if(count($hrDetails) > 0){
+            return response()->json([
+                'status' => 200,
+                'DetailsOfRequestingEmployee' =>  $hrDetails
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'status' => 404,
+                'DetailsOfRequestingEmployee' =>  'No Record Found'
+            ], 404);
+        }
+    }
+
+
+    function detailsOfRequestingEmployeeMonthYear($month, $year) {
+        $Hr = Hr::select('id', 'requesting_employee_name', 'office_unit', 'request_date')
+            ->get()
+            ->filter(function($record) use ($month, $year) {
+                $date = Carbon::createFromFormat('F j, Y', $record->request_date);
+                return $date->year == $year && $date->format('M') == $month;
+            })
+            ->groupBy('requesting_employee_name');
+
+        $hrDetails = [];
+        foreach ($Hr as $key => $value) {
+            $hrDetails[] = [
+                'id' => $value[0]->id,
+                'name' => $key,
+                'office_unit' => $value[0]->office_unit,
+                'record_count' => count($value)
+            ];
+        }
+
+        if(count($hrDetails) > 0){
+            return response()->json([
+                'status' => 200,
+                'DetailsOfRequestingEmployee' =>  $hrDetails
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'status' => 404,
+                'DetailsOfRequestingEmployee' =>  'No Record Found'
+            ], 404);
+        }
+    }
 }
