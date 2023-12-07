@@ -187,6 +187,16 @@ Route::get("osdVersion/{ID}/view", [OsdController::class,'osdVersionShowID']); /
 
 //*SPECIFICALLY USED FOR GETTING DATA FOR CHARTJS COMPONENTS IN FRONTEND
 Route::get("employmentStatus", [OsdController::class,'employmentStatus']);
+Route::get("employmentType", [OsdController::class,'employmentType']);
+Route::get("divisionCount", [OsdController::class,'divisionCount']);
+Route::get("statusFilledUnfilled", [OsdController::class,'statusFilledUnfilled']);
+Route::get("genderAndAge", [OsdController::class,'genderAndAge']);
+
+Route::get("cssAndOthers", [OsdController::class,'cssAndOthers']);
+Route::get("licensed", [OsdController::class,'licensed']);
+Route::get("highestLevelOfEligibility", [OsdController::class,'highestLevelOfEligibility']);
+Route::get("withWithoutEligibilities", [OsdController::class,'withWithoutEligibilities']);
+
 Route::get("employmentDetails", [OsdController::class,'employmentDetails']);
 //! ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //! OSD API ROUTE START
