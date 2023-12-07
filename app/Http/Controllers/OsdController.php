@@ -473,12 +473,307 @@ class OsdController extends Controller
 
 
             // THIS FUNCTIONS ARE USED FOR GETTING DATA FOR SELECTED TABLE COLOUMN SPECIFICALLY USED FOR VISUALIZATION ONLY
-            function employmentStatus(){
-                return Osd::select('employment_status')->get();
-            }
+            // function employmentStatus(){
+            //     return Osd::select('employment_status')->get();
+            // }
             function employmentDetails(){
                 return Osd::select('fullname', 'section_unit')->get();
             }
 
 
+
+
+
+
+
+
+
+
+
+            function employmentStatus() {
+                $Osd = Osd::select('id', 'employment_status')->get();
+
+                if ($Osd->count() > 0) {
+                    $grouped = $Osd->groupBy('employment_status')->map->count();
+
+                    return response()->json([
+                        'status' => 200,
+                        'EmploymentStatus' => $grouped
+                    ], 200);
+                } else {
+                    return response()->json([
+                        'status' => 404,
+                        'EmploymentStatus' => 'No Record Found'
+                    ], 404);
+                }
+            }
+
+
+
+
+
+
+
+            function employmentType() {
+                $Osd = Osd::select('id', 'indicate_whether_member_of_indigenous_group',
+                    'indicate_whether_solo_parent',
+                    'indicate_whether_pwd',
+                    'indicate_whether_senior_citizen')->get();
+
+                if ($Osd->count() > 0) {
+                    $employmentTypes = [
+                        'IP GROUP' => $Osd->where('indicate_whether_member_of_indigenous_group', 'INDIGENOUS GROUP')->count(),
+                        'SOLO PARENT' => $Osd->where('indicate_whether_solo_parent', 'SOLO PARENT')->count(),
+                        'PWD' => $Osd->where('indicate_whether_pwd', 'PWD')->count(),
+                        'SENIOR CITIZEN' => $Osd->where('indicate_whether_senior_citizen', 'SENIOR CITIZEN')->count(),
+                    ];
+
+                    return response()->json([
+                        'status' => 200,
+                        'EmploymentType' => $employmentTypes
+                    ], 200);
+                } else {
+                    return response()->json([
+                        'status' => 404,
+                        'EmploymentType' => 'No Record Found'
+                    ], 404);
+                }
+            }
+
+
+
+            function divisionCount() {
+                $Osd = Osd::select('id', 'division')->get();
+
+                if ($Osd->count() > 0) {
+                    $grouped = $Osd->groupBy('division')->map->count();
+
+                    return response()->json([
+                        'status' => 200,
+                        'DivisionCount' => $grouped
+                    ], 200);
+                } else {
+                    return response()->json([
+                        'status' => 404,
+                        'DivisionCount' => 'No Record Found'
+                    ], 404);
+                }
+            }
+
+
+            function statusFilledUnfilled() {
+                $Osd = Osd::select('id', 'status_filled_unfilled')->get();
+
+                if ($Osd->count() > 0) {
+                    $statusCounts = [
+                        'FILLED' => $Osd->where('status_filled_unfilled', 'FILLED')->count(),
+                        'UNFILLED' => $Osd->where('status_filled_unfilled', 'UNFILLED')->count(),
+                    ];
+
+                    return response()->json([
+                        'status' => 200,
+                        'Status' => $statusCounts
+                    ], 200);
+                } else {
+                    return response()->json([
+                        'status' => 404,
+                        'Status' => 'No Record Found'
+                    ], 404);
+                }
+            }
+
+
+
+
+
+            function genderAndAge() {
+                $Osd = Osd::select('id', 'gender', 'age')->get();
+
+                if ($Osd->count() > 0) {
+                    $ageRanges = [
+                        '22-24', '25-27', '28-30', '31-33', '34-36', '37-39', '40-42',
+                        '43-45', '46-48', '49-51', '52-54', '55-57', '58-60', '61-63', '64 & above'
+                    ];
+
+                    $genderAndAgeCounts = [
+                        'MALE' => [],
+                        'FEMALE' => []
+                    ];
+
+                    foreach ($ageRanges as $range) {
+                        $rangeParts = explode('-', $range);
+                        $min = $rangeParts[0];
+                        $max = $rangeParts[1] ?? PHP_INT_MAX; // For '64 & above' range
+
+                        foreach (['MALE', 'FEMALE'] as $gender) {
+                            $genderAndAgeCounts[$gender][$range] = $Osd
+                                ->where('gender', $gender)
+                                ->whereBetween('age', [$min, $max])
+                                ->count();
+                        }
+                    }
+
+                    return response()->json([
+                        'status' => 200,
+                        'GenderAndAge' => $genderAndAgeCounts
+                    ], 200);
+                } else {
+                    return response()->json([
+                        'status' => 404,
+                        'GenderAndAge' => 'No Record Found'
+                    ], 404);
+                }
+            }
+
+
+            function cssAndOthers() {
+                $Osd = Osd::select('id', 'eligibility_csc_and_other_eligibilities')->get();
+
+                if ($Osd->count() > 0) {
+                    $eligibilityCounts = $Osd->groupBy('eligibility_csc_and_other_eligibilities')
+                                              ->map(function ($group) {
+                                                  return $group->count();
+                                              });
+
+                    return response()->json([
+                        'status' => 200,
+                        'CssAndOthers' => $eligibilityCounts
+                    ], 200);
+                } else {
+                    return response()->json([
+                        'status' => 404,
+                        'CssAndOthers' => 'No Record Found'
+                    ], 404);
+                }
+            }
+
+
+            function licensed() {
+                $Osd = Osd::select('id', 'license_ra_1080_let_rn_rs_etc')->get();
+
+                if ($Osd->count() > 0) {
+                    $licenseCounts = $Osd->groupBy('license_ra_1080_let_rn_rs_etc')
+                                         ->map(function ($group) {
+                                             return $group->count();
+                                         });
+
+                    return response()->json([
+                        'status' => 200,
+                        'Licensed' => $licenseCounts
+                    ], 200);
+                } else {
+                    return response()->json([
+                        'status' => 404,
+                        'Licensed' => 'No Record Found'
+                    ], 404);
+                }
+            }
+
+
+
+            function highestLevelOfEligibility() {
+                $Osd = Osd::select('id', 'highest_level_of_eligibility')->get();
+
+                if ($Osd->count() > 0) {
+                    $eligibilityCounts = $Osd->groupBy('highest_level_of_eligibility')
+                                         ->map(function ($group) {
+                                             return $group->count();
+                                         });
+
+                    return response()->json([
+                        'status' => 200,
+                        'HighestLevelOfEligibility' => $eligibilityCounts
+                    ], 200);
+                } else {
+                    return response()->json([
+                        'status' => 404,
+                        'HighestLevelOfEligibility' => 'No Record Found'
+                    ], 404);
+                }
+            }
+
+            // USE FOR GETTING DETAILED WITH AND WITHOUT ELIGIBILITY
+            // function withWithoutEligibilities() {
+            //     $Osd = Osd::select('id', 'eligibility_csc_and_other_eligibilities', 'license_ra_1080_let_rn_rs_etc', 'highest_level_of_eligibility')->get();
+
+            //     if ($Osd->count() > 0) {
+            //         $withEligibility = $Osd->filter(function ($record) {
+            //             return ($record->eligibility_csc_and_other_eligibilities !== null && $record->eligibility_csc_and_other_eligibilities !== "-") ||
+            //                    ($record->license_ra_1080_let_rn_rs_etc !== null && $record->license_ra_1080_let_rn_rs_etc !== "-") ||
+            //                    ($record->highest_level_of_eligibility !== null && $record->highest_level_of_eligibility !== "-");
+            //         });
+
+            //         $withoutEligibility = $Osd->diff($withEligibility);
+
+            //         return response()->json([
+            //             'status' => 200,
+            //             'Eligibilities' => [
+            //                 'With Eligibility' => $withEligibility,
+            //                 'Without Eligibility' => $withoutEligibility
+            //             ]
+            //         ], 200);
+            //     } else {
+            //         return response()->json([
+            //             'status' => 404,
+            //             'Eligibilities' => 'No Record Found'
+            //         ], 404);
+            //     }
+            // }
+
+
+            // function withWithoutEligibilities() {
+            //     $Osd = Osd::select('id', 'eligibility_csc_and_other_eligibilities', 'license_ra_1080_let_rn_rs_etc', 'highest_level_of_eligibility')->get();
+
+            //     if ($Osd->count() > 0) {
+            //         $withEligibility = $Osd->filter(function ($record) {
+            //             return ($record->eligibility_csc_and_other_eligibilities !== null && $record->eligibility_csc_and_other_eligibilities !== "-") ||
+            //                    ($record->license_ra_1080_let_rn_rs_etc !== null && $record->license_ra_1080_let_rn_rs_etc !== "-") ||
+            //                    ($record->highest_level_of_eligibility !== null && $record->highest_level_of_eligibility !== "-");
+            //         });
+
+            //         $withoutEligibility = $Osd->diff($withEligibility);
+
+            //         return response()->json([
+            //             'status' => 200,
+            //             'Eligibilities' => [
+            //                 'With Eligibility' => $withEligibility,
+            //                 'Without Eligibility' => $withoutEligibility
+            //             ]
+            //         ], 200);
+            //     } else {
+            //         return response()->json([
+            //             'status' => 404,
+            //             'Eligibilities' => 'No Record Found'
+            //         ], 404);
+            //     }
+            // }
+
+
+
+            function withWithoutEligibilities() {
+                $Osd = Osd::select('id', 'eligibility_csc_and_other_eligibilities', 'license_ra_1080_let_rn_rs_etc', 'highest_level_of_eligibility')->get();
+
+                if ($Osd->count() > 0) {
+                    $withEligibility = $Osd->filter(function ($record) {
+                        return ($record->eligibility_csc_and_other_eligibilities !== null && $record->eligibility_csc_and_other_eligibilities !== "-") ||
+                               ($record->license_ra_1080_let_rn_rs_etc !== null && $record->license_ra_1080_let_rn_rs_etc !== "-") ||
+                               ($record->highest_level_of_eligibility !== null && $record->highest_level_of_eligibility !== "-");
+                    });
+
+                    $withoutEligibility = $Osd->diff($withEligibility);
+
+                    return response()->json([
+                        'status' => 200,
+                        'Eligibilities' => [
+                            'WithELIGIBILITY' => $withEligibility->count(),
+                            'WithoutELIGIBILITY' => $withoutEligibility->count()
+                        ]
+                    ], 200);
+                } else {
+                    return response()->json([
+                        'status' => 404,
+                        'Eligibilities' => 'No Record Found'
+                    ], 404);
+                }
+            }
 }

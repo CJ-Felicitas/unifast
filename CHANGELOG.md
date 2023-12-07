@@ -37,3 +37,5 @@
 ## version 2.7 Added new HR CONTROLLER FUNCTIONS and API ROUTES
 
 ## version 2.8 Done with the HR USER PAGE CONTROLLER FUNCTIONS
+
+## version 2.9 Done with the OSD USER PAGE CONTROLLER FUNCTIONS and API ROUTES
