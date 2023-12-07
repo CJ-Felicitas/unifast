@@ -39,7 +39,7 @@ class HrController extends Controller
                 'office_unit' => 'max:254',
                 'request_category' => 'max:254',
                 'brief_interview' => 'max:254',
-                'remarks' => 'max:254',
+                'remarks' => 'max:510',
                 'assistance_provided' => 'max:254',
             ]);
 
@@ -109,7 +109,7 @@ class HrController extends Controller
                 'office_unit' => 'max:254',
                 'request_category' => 'max:254',
                 'brief_interview' => 'max:254',
-                'remarks' => 'max:254',
+                'remarks' => 'max:510',
                 'assistance_provided' => 'max:254',
                 'quantity_unit' => 'max:254',
                 'date_received' => 'max:254',
