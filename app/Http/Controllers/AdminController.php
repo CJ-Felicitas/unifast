@@ -61,7 +61,7 @@ use Illuminate\Support\Facades\Validator;
             'name' => 'required|string',
             'email' => 'required|email|unique:admins',
             'role' => 'required|string|in:admin,user',
-            'password' => 'required|min:6',
+            'password' => 'required|min:4',
 
         ]);
 
@@ -96,7 +96,7 @@ use Illuminate\Support\Facades\Validator;
             'name' => 'required|string',
             'email' => 'required|email|unique:admins,email,' . $id,
             'role' => 'required|string|in:admin,user',
-            'password' => 'sometimes|min:6', // Password is only required on update if provided
+            'password' => 'sometimes|min:4', // Password is only required on update if provided
             // Add any additional validation rules as needed
         ]);
 
@@ -140,7 +140,7 @@ use Illuminate\Support\Facades\Validator;
         $validator = Validator::make($request->all(),
         [
             'email' => 'required|email',
-            'password' => 'required|min:6',
+            'password' => 'required|min:4',
         ]);
 
         if ($validator->fails()) {

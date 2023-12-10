@@ -32,6 +32,7 @@ Route::get("getAdmin/{id}", [AdminController::class,'show']);
 Route::post("storeAdmin", [AdminController::class,'store']);
 Route::put("getAdmin/{ID}/edit", [AdminController::class,'update']);
 Route::post('adminLogin', [AdminController::class, 'login']);
+Route::delete("getAdmin/{ID}/delete", [AdminController::class,'destroy']);
 
 
 
