@@ -154,9 +154,27 @@ use Illuminate\Support\Facades\Validator;
         }
 
         if (Hash::check($request->input('password'), $admin->password)) {
-            return response()->json(['Response' => "Accepted", 'Role' => $admin->role], 200);
+            return response()->json(['Response' => "Accepted", 'Name' => $admin->name, 'Role' => $admin->role], 200);
         } else {
             return response()->json(['error' => 'Password mismatch'], 400);
         }
     }
+
+
+    //     public function login(Request $request)
+    // {
+    //     $credentials = $request->validate([
+    //         'email' => 'required|email',
+    //         'password' => 'required|min:4',
+    //     ]);
+
+    //     if (!Auth::attempt($credentials)) {
+    //         return response()->json(['error' => 'Invalid credentials'], 401);
+    //     }
+
+    //     $admin = Auth::user();
+    //     $token = $admin->createToken('AdminToken')->accessToken;
+
+    //     return response()->json(['token' => $token, 'role' => $admin->role], 200);
+    // }
 }
