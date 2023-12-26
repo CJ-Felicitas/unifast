@@ -14,63 +14,70 @@ use Illuminate\Support\Facades\Validator;
     // Get a list of admin credentials
     public function index()
     {
+        // Retrieve all admins
         $admins = user_Admin::all();
 
-        if($admins->count() > 0){
+        // Check if the retrieved collection is not empty
+        if(!$admins->isEmpty()){
+            // If there are admins, return them along with a success status
             return response()->json([
                 'status' => 200,
                 'Admin' =>  $admins
             ], 200);
         }
         else{
+            // If there are no admins, return a 404 status and a message indicating no records were found
             return response()->json([
                 'status' => 404,
                 'Admin' =>  'No Record Found'
             ], 404);
         }
-
     }
 
      // Get details of a specific admin
-     public function show($id)
-        {
-            $admins = user_Admin::find($id);
+    public function show($id)
+    {
+        try {
+            // Attempt to find the admin with the given ID
+            $admin = user_Admin::findOrFail($id);
 
-            if($admins){
-                return response()->json([
-                    'status' => 200,
-                    'message' => 'Admin credential is available',
-                    'Admin' => $admins
-                ], 200);
-            }
-            else {
-                return response()->json([
-                    'status' => 404,
-                    'Error' => "Admin not Found"
-                ], 404);
-            }
+            // If the admin is found, return its details along with a success message
+            return response()->json([
+                'status' => 200,
+                'message' => 'Admin credential is available',
+                'Admin' => $admin
+            ], 200);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            // If the admin is not found, return a 404 error
+            return response()->json([
+                'status' => 404,
+                'Error' => "Admin not Found"
+            ], 404);
         }
-
+    }
 
 
 
         // Store a newly created user in the database
-        public function store(Request $request){
-            $validator = Validator::make($request->all(),
-        [
-            'name' => 'required|string',
-            'email' => 'required|email|unique:admins',
-            'role' => 'required|string|in:admin,user',
-            'password' => 'required|min:4',
+        public function store(Request $request)
+        {
+            // Validate the request data
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string',
+                'email' => 'required|email|unique:admins',
+                'role' => 'required|string|in:admin,user',
+                'password' => 'required|min:4',
+            ]);
 
-        ]);
-
+            // If validation fails, return the errors
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->errors()], 400);
             }
 
+            // Hash the password before storing
             $hashedPassword = bcrypt($request->input('password'));
 
+            // Create a new admin with the validated data
             $admin = user_Admin::create([
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
@@ -78,6 +85,7 @@ use Illuminate\Support\Facades\Validator;
                 'password' => $hashedPassword,
             ]);
 
+            // Return a success message along with the created admin data
             return response()->json(['admin' => $admin, 'message' => 'Admin created successfully'], 201);
         }
 
@@ -86,95 +94,95 @@ use Illuminate\Support\Facades\Validator;
     // Update the specified admin in the database
     public function update(Request $request, $id)
     {
-        $admin = user_Admin::find($id);
+        try {
+            // Attempt to find the admin with the given ID
+            $admin = user_Admin::findOrFail($id);
 
-        if (!$admin) {
+            // Validate the request data
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string',
+                'email' => 'required|email|unique:admins,email,' . $id,
+                'role' => 'required|string|in:admin,user',
+                'password' => 'sometimes|min:4', // Password is only required on update if provided
+                // Add any additional validation rules as needed
+            ]);
+
+            // If validation fails, return the errors
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 400);
+            }
+
+            // If a password is provided in the request, hash it before storing
+            if ($request->has('password')) {
+                $request['password'] = bcrypt($request['password']);
+            }
+
+            // Update the admin with the validated data
+            $admin->update($request->all());
+
+            // Return a success message along with the updated admin data
+            return response()->json(['user' => $admin, 'message' => 'Admin updated successfully'], 200);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            // If the admin is not found, return a 404 error
             return response()->json(['error' => 'Admin not found'], 404);
         }
-
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
-            'email' => 'required|email|unique:admins,email,' . $id,
-            'role' => 'required|string|in:admin,user',
-            'password' => 'sometimes|min:4', // Password is only required on update if provided
-            // Add any additional validation rules as needed
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 400);
-        }
-
-        // Hash the password if it's present in the request
-        if ($request->has('password')) {
-            $request['password'] = bcrypt($request['password']);
-        }
-
-        $admin->update($request->all());
-
-        return response()->json(['user' => $admin, 'message' => 'Admin updated successfully'], 200);
     }
 
-        //! Remove the specified admin from the database NOT YET FIXED
+
+    // Delete the specified admin from the database
     public function destroy($id)
     {
-        $admin = user_Admin::find($id);
-
-        if (!$admin) {
-            return response()->json(['error' => 'Admin not found'], 404);
-        }
-
         try {
+            // Attempt to find the admin with the given ID
+            $admin = user_Admin::findOrFail($id);
+
+            // If the admin is found, delete it
             $admin->delete();
+
+            // Return a success message
+            return response()->json(['message' => 'Admin deleted successfully'], 200);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            // If the admin is not found, return a 404 error
+            return response()->json(['error' => 'Admin not found'], 404);
         } catch (\Exception $e) {
-            // Handle any potential exception, e.g., database errors
+            // If any other error occurs (e.g., a database error), return a 500 error
+            // The actual error message is not returned for security reasons
             return response()->json(['error' => 'Failed to delete admin'], 500);
         }
-
-        return response()->json(['message' => 'Admin deleted successfully'], 200);
     }
 
 
 
-
-    public function login(Request $request){
-        $validator = Validator::make($request->all(),
-        [
+    public function login(Request $request)
+    {
+        // Validate the request data
+        $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|min:4',
         ]);
 
+        // If validation fails, return the errors
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 400);
         }
 
-        $admin = user_Admin::where('email', $request->input('email'))->first();
+        // Try to find the admin with the provided email
+        $admin = user_Admin::firstWhere('email', $request->input('email'));
 
+        // If no admin was found, return an error
         if (!$admin) {
             return response()->json(['error' => 'Admin not found'], 404);
         }
 
+        // Check if the provided password matches the admin's password
         if (Hash::check($request->input('password'), $admin->password)) {
+            // If the password matches, return the admin's details
             return response()->json(['Response' => "Accepted", 'Name' => $admin->name, 'Role' => $admin->role], 200);
         } else {
+            // If the password doesn't match, return an error
             return response()->json(['error' => 'Password mismatch'], 400);
         }
     }
 
 
-    //     public function login(Request $request)
-    // {
-    //     $credentials = $request->validate([
-    //         'email' => 'required|email',
-    //         'password' => 'required|min:4',
-    //     ]);
-
-    //     if (!Auth::attempt($credentials)) {
-    //         return response()->json(['error' => 'Invalid credentials'], 401);
-    //     }
-
-    //     $admin = Auth::user();
-    //     $token = $admin->createToken('AdminToken')->accessToken;
-
-    //     return response()->json(['token' => $token, 'role' => $admin->role], 200);
-    // }
 }

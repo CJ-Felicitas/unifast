@@ -7,6 +7,7 @@ use App\Http\Controllers\OsdController;
 use App\Http\Controllers\CbssController;
 use App\Http\Controllers\SwdaController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\backgroundController;
 use App\http\Controllers\TblEmployeeController;
 /*
 |--------------------------------------------------------------------------
@@ -33,11 +34,14 @@ Route::post("storeAdmin", [AdminController::class,'store']);
 Route::put("getAdmin/{ID}/edit", [AdminController::class,'update']);
 Route::post('adminLogin', [AdminController::class, 'login']);
 Route::delete("getAdmin/{ID}/delete", [AdminController::class,'destroy']);
-
-
-
 // LOGIN API ROUTE END
 
+// CHANGE BACKGROUND API ROUTE START
+Route::post('upload', [backgroundController::class, 'upload']);
+Route::post('update', [backgroundController::class, 'update']);
+Route::get('getImagePath', [backgroundController::class, 'getImagePath']);
+Route::get('latest', [backgroundController::class, 'latest']);
+// CHANGE BACKGROUND API ROUTE END
 
 //! ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //! SWDA API ROUTE START

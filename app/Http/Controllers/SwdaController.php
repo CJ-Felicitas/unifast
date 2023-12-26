@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Swda;
 use App\Models\SwdaVersion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -67,10 +68,10 @@ class SwdaController extends Controller
             'Accreditation_Expiration' => 'max:254',
             'Accreditation_Status' => 'max:254',
             'Remarks' => 'max:254',
-            'License_Days_Left' => 'integer',
-            'Licensure_Overdue' => 'integer',
-            'Accreditation_Days_Left' => 'integer',
-            'Accreditation_Overdue' => 'integer',
+            // 'License_Days_Left' => 'integer',
+            // 'Licensure_Overdue' => 'integer',
+            // 'Accreditation_Days_Left' => 'integer',
+            // 'Accreditation_Overdue' => 'integer',
         ]);
 
         // Check if validation fails
@@ -80,8 +81,24 @@ class SwdaController extends Controller
                 'errors' => $validator->errors()
             ], 422);
         }
-           // Create a new Swda record with all validated fields
+
         else{
+
+            // Calculate the days left and overdue
+            $licenseDaysLeft = Carbon::now()->diffInDays(Carbon::parse($request->License_Expiration), false);
+            $licensureOverdue = $licenseDaysLeft < 0 ? abs($licenseDaysLeft) : 0;
+            $accreditationDaysLeft = Carbon::now()->diffInDays(Carbon::parse($request->Accreditation_Expiration), false);
+            $accreditationOverdue = $accreditationDaysLeft < 0 ? abs($accreditationDaysLeft) : 0;
+
+            // Add the calculated fields to the request data
+            $request->merge([
+                'License_Days_Left' => $licenseDaysLeft > 0 ? $licenseDaysLeft : 0,
+                'Licensure_Overdue' => $licensureOverdue,
+                'Accreditation_Days_Left' => $accreditationDaysLeft > 0 ? $accreditationDaysLeft : 0,
+                'Accreditation_Overdue' => $accreditationOverdue,
+            ]);
+
+            // Create a new Swda record with all validated fields
             $Swda = Swda::create($request->all());
 
             return response()->json([
