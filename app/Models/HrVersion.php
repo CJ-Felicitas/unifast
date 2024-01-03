@@ -27,6 +27,7 @@ class HrVersion extends Model
         'assistance_provided',
         'quantity_unit',
         'date_received',
+        'responsible_admin',
     ];
 
 }

@@ -56,6 +56,7 @@ class SwdaVersion extends Model
         'Licensure_Overdue',
         'Accreditation_Days_Left',
         'Accreditation_Overdue',
+        'responsible_admin'
     ];
 
 }

@@ -44,7 +44,7 @@ class CbssController extends Controller
             'REMARKS' => 'max:254',
             'REPONSIBLE_PERSON' => 'max:254',
             'NUMBER_OF_SERVICES_AVAILED' => 'max:254',
-
+            'RESPONSIBLE_ADMIN' => 'max:254',
         ]);
 
         // Check if validation fails
@@ -119,6 +119,7 @@ class CbssController extends Controller
             'REMARKS' => 'max:254',
             'REPONSIBLE_PERSON' => 'max:254',
             'NUMBER_OF_SERVICES_AVAILED' => 'max:254',
+            'RESPONSIBLE_ADMIN' => 'max:254',
         ]);
 
         if ($validator->fails()) {
@@ -167,6 +168,7 @@ class CbssController extends Controller
                 'REMARKS' => $oldCbss['REMARKS'],
                 'REPONSIBLE_PERSON' => $oldCbss['REPONSIBLE_PERSON'],
                 'NUMBER_OF_SERVICES_AVAILED' => $oldCbss['NUMBER_OF_SERVICES_AVAILED'],
+                'RESPONSIBLE_ADMIN' => $oldCbss['RESPONSIBLE_ADMIN'],
                 // Map other columns accordingly
                 'previous_version' => json_encode($oldCbss),
                 'updated_version' => json_encode($Cbss->toArray())

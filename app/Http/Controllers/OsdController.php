@@ -93,6 +93,7 @@ class OsdController extends Controller
             'pagibig_number' => 'max:254',
             'gsis_number' => 'max:254',
             'blood_type' => 'max:254',
+            'responsible_admin' => 'max:254',
         ]);
 
 
@@ -218,6 +219,7 @@ class OsdController extends Controller
             'pagibig_number' => 'max:254',
             'gsis_number' => 'max:254',
             'blood_type' => 'max:254',
+            'responsible_admin' => 'max:254',
         ]);
 
         if ($validator->fails()) {
@@ -313,6 +315,7 @@ class OsdController extends Controller
                 'pagibig_number' => $oldOsd['pagibig_number'],
                 'gsis_number' => $oldOsd['gsis_number'],
                 'blood_type' => $oldOsd['blood_type'],
+                'responsible_admin' => $oldOsd['responsible_admin'],
                 // 'blood_type' field included here
 
                 // Assuming $oldOsd is an associative array and $Osd is an object

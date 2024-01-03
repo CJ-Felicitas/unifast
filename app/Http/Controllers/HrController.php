@@ -41,6 +41,7 @@ class HrController extends Controller
                 'brief_interview' => 'max:254',
                 'remarks' => 'max:510',
                 'assistance_provided' => 'max:254',
+                'responsible_admin' => 'max:254',
             ]);
 
 
@@ -113,6 +114,7 @@ class HrController extends Controller
                 'assistance_provided' => 'max:254',
                 'quantity_unit' => 'max:254',
                 'date_received' => 'max:254',
+                'responsible_admin' => 'max:254',
 
             ]);
 
@@ -157,7 +159,7 @@ class HrController extends Controller
                     'assistance_provided' => $oldHr['assistance_provided'],
                     'quantity_unit' => $oldHr['quantity_unit'],
                     'date_received' => $oldHr['date_received'],
-
+                    'responsible_admin' => $oldHr['responsible_admin'],
                     // Map other columns accordingly
                     'previous_version' => json_encode($oldHr),
                     'updated_version' => json_encode($Hr->toArray())

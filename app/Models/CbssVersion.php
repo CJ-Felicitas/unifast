@@ -29,6 +29,7 @@ class CbssVersion extends Model
         'AMOUNT',
         'REMARKS',
         'REPONSIBLE_PERSON',
-        'NUMBER_OF_SERVICES_AVAILED'
+        'NUMBER_OF_SERVICES_AVAILED',
+        'RESPONSIBLE_ADMIN',
     ] ;
 }

@@ -68,6 +68,7 @@ class SwdaController extends Controller
             'Accreditation_Expiration' => 'max:254',
             'Accreditation_Status' => 'max:254',
             'Remarks' => 'max:254',
+            'responsible_admin' => 'max:254',
             // 'License_Days_Left' => 'integer',
             // 'Licensure_Overdue' => 'integer',
             // 'Accreditation_Days_Left' => 'integer',
@@ -188,6 +189,7 @@ class SwdaController extends Controller
             'Licensure_Overdue' => 'integer',
             'Accreditation_Days_Left' => 'integer',
             'Accreditation_Overdue' => 'integer',
+            'responsible_admin' => 'max:254',
         ]);
 
         if ($validator->fails()) {
@@ -281,7 +283,7 @@ class SwdaController extends Controller
                 'Licensure_Overdue' => $oldSwda['Licensure_Overdue'],
                 'Accreditation_Days_Left' => $oldSwda['Accreditation_Days_Left'],
                 'Accreditation_Overdue' => $oldSwda['Accreditation_Overdue'],
-
+                'responsible_admin' => $oldSwda['responsible_admin'],
 
                 // Map other columns accordingly
                 'previous_version' => json_encode($oldSwda),

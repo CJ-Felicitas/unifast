@@ -77,6 +77,8 @@ class Osd extends Model
         'pagibig_number',
         'gsis_number',
         'blood_type',
+        'responsible_admin'
+
     ] ;
 
 }
