@@ -3,54 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\backgroundModel;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 
 class backgroundController extends Controller
 {
-    // public function upload(Request $request, backgroundModel $background)
-    //     {
-    //         $request->validate([
-    //             'image' => 'required|string',
-    //         ]);
-
-    //         $imageName = $request->image;
-
-    //         $background->image_path = Storage::url('backgrounds/'.$imageName);
-    //         $background->save();
-
-    //         return response()->json([
-    //             'success' => true,
-    //             'image' => $imageName
-    //         ]);
-    //     }
-
-    // public function update(Request $request)
-    // {
-    //     $request->validate([
-    //         'image' => 'required|string',
-    //     ]);
-
-    //     $imageName = $request->image;
-
-    //     $background = backgroundModel::find(2);
-    //     if (!$background) {
-    //         return response()->json([
-    //             'success' => false,
-    //             'message' => 'No background found with ID 1'
-    //         ], 404);
-    //     }
-
-    //     $background->image_path = Storage::url('backgrounds/'.$imageName);
-    //     $background->save();
-
-    //     return response()->json([
-    //         'success' => true,
-    //         'image' => $imageName
-    //     ]);
-    // }
 
     public function update(Request $request)
     {
@@ -100,13 +57,4 @@ class backgroundController extends Controller
         ]);
     }
 
-    // function getImagePath(){
-    //     $backgrounds = backgroundModel::select('image_path')->get();
-
-    //     if ($backgrounds->isEmpty()) {
-    //         return response()->json(['error' => 'No backgrounds found'], 404);
-    //     }
-
-    //     return $backgrounds;
-    // }
 }
