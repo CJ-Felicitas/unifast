@@ -65,7 +65,7 @@ use Illuminate\Support\Facades\Validator;
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string',
                 'email' => 'required|email|unique:admins',
-                'role' => 'required|string|in:admin,user',
+                'role' => 'required|string|in:admin,user,swdaAdmin,cbssAdmin,hrAdmin,osdAdmin',
                 'password' => 'required|min:4',
             ]);
 
@@ -102,7 +102,7 @@ use Illuminate\Support\Facades\Validator;
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string',
                 'email' => 'required|email|unique:admins,email,' . $id,
-                'role' => 'required|string|in:admin,user',
+                'role' => 'required|string|in:admin,user,swdaAdmin,cbssAdmin,hrAdmin,osdAdmin',
                 'password' => 'sometimes|min:4', // Password is only required on update if provided
                 // Add any additional validation rules as needed
             ]);
